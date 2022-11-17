@@ -25,12 +25,12 @@ body {
   // position: fixed;
   font-family: $font-candara-regular;
   font-size: 1.6rem;
-  overflow-x: hidden;
 }
 
 html, body{
   width: 100%;
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 a {
