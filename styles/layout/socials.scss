@@ -1,0 +1,50 @@
+.socials {
+  @extend %between;
+
+  width: 92vw;
+  height: 3rem;
+  position: fixed;
+  bottom: 3.3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: z('socials');
+
+  @include media('<phone') {
+    width: 68.8rem;
+  }
+}
+.socials__links {
+  @extend %between;
+
+  width: 11.7rem;
+  height: 100%;
+  padding: 0.745rem 1.74rem;
+
+  a{
+    fill: $color-white;
+  }
+}
+.social__link__facebook {
+  width: 0.8rem;
+  height: 1.5rem;
+}
+.social__link__twitter {
+  width: 1.86rem;
+  height: 1.5rem;
+}
+.social__link__instagram {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.socials__get__in__touch {
+  @extend %center;
+
+  width: 11.7rem;
+  height: 100%;
+  font-family: $font-candara-bold;
+  font-size: 1.4rem;
+  line-height: 1.7rem;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+

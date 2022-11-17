@@ -1,0 +1,308 @@
+
+     &__item-img-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+  }
+    &__item-img {
+      max-width: unset;
+      // width: calc(100% + var(--col-3)) !important;
+
+      pointer-events: none;
+      user-select: none;
+
+      transform-origin: left center;
+      transform: scale(1.75);
+      will-change: transform;
+      }
+
+  function animate (){
+  let mainHeight = main.getBoundingClientRect().height;
+  let mainWidth = main.getBoundingClientRect().width;
+  let mainBottom = main.getBoundingClientRect().bottom;
+  let mainTop = main.getBoundingClientRect().top;
+  let sliderRight = window.innerWidth - slider.getBoundingClientRect().right;
+  current = parseFloat(lerp(current, target, ease).toFixed(2)); // parse float is to set the decimal place to 2
+	console.log(window.scrollY);
+  target = window.scrollY - mainTop;
+  slider.style.transform = `translateX(${-current}}px)`;
+  slider.style.left = `-${current}px`;
+
+  if (window.scrollY >= mainTop && window.scrollY > mainTop+mainHeight   ) {
+   main.classList.add('fixed');
+
+  }else{
+
+  }
+  if (sliderRight > 0 ) {
+
+  }
+  imagesAnim();
+  requestAnimationFrame(animate);
+
+}
+
+
+init();
+animate();
+
+function for moving images to create parallax
+function imagesAnim(){
+let ratio = current / imageWidth;
+let intersectionValue;
+// console.log(current);
+images.forEach((image, idx) => {
+ intersectionValue = ratio - (idx * 0.75);
+  setTransform(image, `translateX(-${intersectionValue * 70}px)`);
+})
+}
+   only perform parallax for images in viewport
+  this.items.forEach((item) => {
+      const { bounds } = item;
+      const inView = scrollLast + window.innerWidth >= bounds.left && scrollLast < bounds.right;
+
+      if (inView) {
+        const min = bounds.left - window.innerWidth;
+        const max = bounds.right;
+        const percentage = ((scrollLast - min) * 100) / (max - min);
+        const newMin = -(window.innerWidth / 12) * 3;
+        const newMax = 0;
+        item.x = ((percentage - 0) / (100 - 0)) * (newMax - newMin) + newMin;
+
+        item.img.style.transform = `translate3d(${item.x}px, 0, 0) scale(1.75)`;
+      }
+    });
+  update the progress bar
+    if (this.state.scrollEnabled) {
+      const min = 0;
+      const max = -instances.scroll.state.bounds.width + window.innerWidth;
+      this.state.progress = ((instances.scroll.state.last - min) * 100) / (max - min) / 100;
+
+      this.dom.progress.style.transform = `scaleX(${this.state.progress})`;
+    }
+  }
+
+// split text animation
+
+Splitting({})
+
+let tl = gsap.timeline()
+tl.fromTo(
+  ".char",
+  {y: 100},
+  {y: 0,
+   duration: 0.5,
+   stagger: 0.05,
+   ease: "power3.inOut",
+   repeat: -1,
+   repeatDelay: .5,
+   }
+)
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+const names = ["work", "service", "info"];
+
+names.forEach(name => {
+  let section = document.querySelector("#" + name);
+  let nav = document.querySelector(".nav-" + name);
+  // for class toggling - we'll trigger when it's 40% from the top
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top 40%",
+    end: "bottom 40%",
+    toggleClass: {targets: nav, className: "selected"},
+    markers: true
+  });
+
+  // for clicking the nav and animating to the correct spot
+  let trigger = ScrollTrigger.create({
+        trigger: section,
+        start: "top top"
+      });
+  nav.addEventListener("click", e => {
+    e.preventDefault();
+    gsap.to(window, {scrollTo: trigger.start});
+  })
+})
+
+
+     const tlIn = gsap.timeline({ defaults: { duration: 0.5, delay: 0.3, } });
+
+      if (this.itemBoundsLeft < this.windowCenter &&
+          this.itemBoundsLeft > this.windowLeft
+          ) {
+            // tlIn.to(itemTitleSpans[1], {opacity: 0, y: '-100%'});
+            // tlIn.to(itemTitleSpans[0], {opacity: 1, y:'0%',});
+            console.log(itemTitleSpans[0].innerHTML, item);
+      } else {
+        // const tlOut = gsap.timeline({ defaults: { duration: 0.5, delay: 0.3,  } });
+        // tlIn.to(itemTitleSpans[0], { opacity: 0, y: '100%',});
+        // tlIn.to(itemTitleSpans[1], { opacity: 0.3, y:'0%' });
+      }
+
+      this.tl1
+     .to('.about__idea__media', {
+       delay: 0.5,
+       duration: 1,
+       opacity: 1,
+       scale: 1,
+     })
+     .to(
+       this.Medias[0],
+       {
+         duration: 1,
+         scaleX: 2.6,
+         scaleY: 2.4,
+         left: '713px',
+         top: '122px',
+       },
+       2
+     )
+     .to(
+       '.home__about__movingtext',
+       { autoAlpha: 1, left:0, duration: 1 }, '-=1')
+     .to('.home__about__movingtext', { x: '-75%', duration: 12 });
+
+     // Link timelines to scroll position
+  function createScrollTrigger(triggerElement, timeline) {
+    // Reset tl when scroll out of view past bottom of screen
+    ScrollTrigger.create({
+      trigger: triggerElement,
+      start: "top bottom",
+      onLeaveBack: () => {
+        timeline.progress(0);
+        timeline.pause();
+      }
+    });
+    // Play tl when scrolled into view (60% from top of screen)
+    ScrollTrigger.create({
+      trigger: triggerElement,
+      start: "top 60%",
+      onEnter: () => timeline.play()
+    });
+  }
+
+      $("[letters-slide-up]").each(function (index) {
+    let tl = gsap.timeline({ paused: true });
+    tl.from($(this).find(".char"), { yPercent: 100, duration: 0.2, ease: "power1.out", stagger: { amount: 0.6 } });
+    createScrollTrigger($(this), tl);
+  });
+
+    $("[words-slide-from-right]").each(function (index) {
+    let tl = gsap.timeline({ paused: true });
+    tl.from($(this).find(".word"), { opacity: 0, x: "1em", duration: 0.6, ease: "power2.out", stagger: { amount: 0.2 } });
+    createScrollTrigger($(this), tl);
+  });
+
+   .to(
+        this.Medias[1],
+        {
+          duration: 1,
+          scaleX: 2.4,
+          scaleY: 1.4,
+          left: '50%',
+          top: '50%',
+          xPercent: -50,
+          yPercent: -50,
+          x: 0,
+          y: 0,
+        },
+        "imgT"
+      )
+      .to(
+        this.Medias[2],
+        {
+          duration: 1,
+          scaleX: 2.1,
+          scaleY: 2.8,
+          left: '50%',
+          top: '50%',
+          xPercent: -50,
+          yPercent: -50,
+          x: 0,
+          y: 0,
+        },
+        "imgT"
+      )
+      .to(
+        this.Medias[3],
+        {
+          duration: 1,
+          scaleX: 1.73,
+          scaleY: 2.6,
+          left: '50%',
+          top: '50%',
+          xPercent: -50,
+          yPercent: -50,
+          x: 0,
+          y: 0,
+        },
+        "imgT"
+      )
+      .to(
+        this.Medias[4],
+        {
+          duration: 1,
+          scaleX: 1.5,
+          scaleY: 3.3,
+          left: '50%',
+          top: '50%',
+          xPercent: -50,
+          yPercent: -50,
+          x: 0,
+          y: 0,
+        },
+        "imgT"
+      )
+      .to(
+        this.Medias[5],
+        {
+          duration: 1,
+          scaleX: 1.6,
+          scaleY: 1.9,
+          left: '50%',
+          top: '50%',
+          xPercent: -50,
+          yPercent: -50,
+          x: 0,
+          y: 0,
+        },
+        "imgT"
+      )
+      .to(
+        this.Medias[6],
+        {
+          duration: 1,
+          scaleX: 2.1,
+          scaleY: 3.35,
+          left: '50%',
+          top: '50%',
+          xPercent: -50,
+          yPercent: -50,
+          x: 0,
+          y: 0,
+        },
+        "imgT"
+      )
+      .to(
+        this.Medias[7],
+        {
+          duration: 1,
+          scaleX: 2,
+          scaleY: 2.6,
+          left: '50%',
+          top: '50%',
+          xPercent: -50,
+          yPercent: -50,
+          x: 0,
+          y: 0,
+        },
+        "imgT"
+      )
+      toggleActions: 'restart complete restart reset',

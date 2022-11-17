@@ -1,0 +1,124 @@
+.home__hero {
+  @extend %center;
+}
+.home__hero__wrapper {
+  @extend %cover;
+  position: relative;
+}
+.home__hero__image {
+  @extend %cover;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+}
+.home__hero__wrapper__overlay {
+  @extend %cover;
+  background-color: rgba(17, 17, 17, 0.63);
+}
+.home__hero__text {
+  @extend %col-center;
+
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 43%;
+  height: 13%;
+  max-height: 15rem;
+  color: $color-white;
+
+  @include media('<phone') {
+    width: 79%;
+    height: 7%;
+    top: 45.6%;
+  }
+}
+.home__hero__maintext {
+  font-family: $font-amoret-sans;
+  font-size: 6rem;
+  line-height: 7.8rem;
+  overflow: hidden;
+
+  @include media('<phone') {
+    font-size: 4.4rem;
+    line-height: 5.6rem;
+  }
+}
+.home__hero__subtext {
+  font-family: $font-candara-regular;
+  font-size: 2.4rem;
+  letter-spacing: 0.36rem;
+  line-height: 2.8rem;
+}
+.home__hero__line__wrapper {
+  @extend %center;
+
+  width: 1rem;
+  height: 11.4%;
+  position: absolute;
+  top: 64%;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+
+  @include media('<phone') {
+    width: 2rem;
+    height: 13.42%;
+    top: 63.2%;
+  }
+}
+.home__hero__line {
+  @extend %center;
+
+  width: 0.2rem;
+  height: 100%;
+  animation: move 3s infinite;
+  background: $color-light-white;
+
+  @include media('<phone') {
+    width: 0.2rem;
+  }
+}
+.home__hero__discover__btn {
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20.5rem;
+  height: 2.8rem;
+  text-transform: uppercase;
+  @extend %center;
+
+  @include media('<phone') {
+    top: 82.5%;
+  }
+}
+.home__hero__discover {
+  letter-spacing: 0.12rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  line-height: 1.5rem;
+
+  @include media('<phone') {
+    font-size: 1.8rem;
+    letter-spacing: 0.2rem;
+  }
+  @include media('<tablet') {
+    font-size: 1.8rem;
+    letter-spacing: 0.2rem;
+  }
+}
+
+@keyframes move {
+	0% {
+		transform: translate3d(0%, -120%, 0)
+	}
+	80% {
+		transform: translate3d(0%, 100%, 0)
+	}
+	100% {
+		transform: translate3d(0%, 100%, 0)
+	}
+}

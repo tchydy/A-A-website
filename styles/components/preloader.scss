@@ -1,0 +1,283 @@
+.preloader {
+  @extend %cover;
+  @extend %center;
+
+  background: $color-bg;
+  color: $color-white;
+  // display: none;
+  z-index: z('preloader');
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
+
+.preloader__bg {
+  @extend %cover;
+  // @extend %center;
+
+  background: $color-bg;
+  color: $color-white;
+}
+
+.preloader__logo__container {
+	width: 57.5rem;
+	height: 7.9rem;
+  position: relative;
+  position: absolute;
+	left: 50%;
+  transform: translateX(-50%);
+	top: 46%;
+
+  @include media('<phone') {
+    transform: translateX(-50%) scale(0.5);
+  }
+}
+
+.preloader__logo {
+	position: absolute;
+	width: 45.36rem;
+	height: 3.08rem;
+	left: 6.07rem;
+	top: 2.5rem;
+}
+
+.preloader__logo__letters {
+	position: absolute;
+	width: 45.36rem;
+	height: 3.08rem;
+	left: 0rem;
+	top: 0rem;
+
+  span {
+    display: inline-block;
+    overflow: hidden;
+  }
+}
+
+.preloader__logo__letters__left__span {
+  position: absolute;
+	width: 25rem;
+	height: 3rem;
+	left: 3.6rem;
+	top: 0rem;
+}
+
+.preloader__logo__letter {
+  fill: $color-white;
+  position: absolute;
+  padding: 0 0.1rem;
+}
+.preloader__logo__letter.l {
+	width: 2.3rem;
+	height: 3rem;
+	left: 0rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.e__1 {
+	width: 2.65rem;
+	height: 3.08rem;
+	left: 2.7rem;
+	top: 0rem;
+}
+
+.preloader__logo__letter.e__1__e__down {
+	width: 2.65rem;
+	height: 1.72rem;
+	left: 0rem;
+	top: 1.36rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.e__1__e__top {
+	width: 2.65rem;
+	height: 0.36rem;
+	left: 0rem;
+	top: 0rem;
+}
+
+.preloader__logo__letter.x {
+	width: 3.06rem;
+	height: 3.08rem;
+	left: 5.7rem;
+	top: 0rem;
+}
+
+.preloader__logo__letter.x__x__extra {
+	width: 1.36rem;
+	height: 1.35rem;
+	left: 0rem;
+	top: 1.73rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.x__x__main {
+	width: 3.06rem;
+	height: 3.08rem;
+	left: 0rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.a {
+	width: 3.22rem;
+	height: 3.08rem;
+	left: 8.92rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.n {
+	width: 2.86rem;
+	height: 3.08rem;
+	left: 12.5rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.d {
+	width: 2.64rem;
+	height: 3.08rem;
+	left: 15.77rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.e__2 {
+	width: 2.65rem;
+	height: 3.08rem;
+	left: 18.811rem;
+	top: 0rem;
+}
+
+.preloader__logo__letter.e__2__e__down {
+	width: 2.65rem;
+	height: 1.72rem;
+	left: 0rem;
+	top: 1.36rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.e__2__e__top {
+	width: 2.65rem;
+	height: 0.36rem;
+	left: 0rem;
+	top: 0rem;
+}
+
+
+.preloader__logo__letter.r {
+	width: 3.02rem;
+	height: 3.08rem;
+	left: 21.86rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letters__middle {
+  position: absolute;
+	width: 36.6rem;
+	height: 3.08rem;
+	left: 0rem;
+	top: 0rem;
+}
+
+.preloader__logo__letter.a__left {
+	width: 3.22rem;
+	height: 3.08rem;
+	left: 0rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.dash {
+	width: 2.1rem;
+	height: 0.36rem;
+	left: 29.88rem;
+	top: 1.42rem;
+}
+
+.preloader__logo__letter.a__right {
+	width: 3.2rem;
+	height: 3.1rem;
+	left: 33.4rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letters__right__span {
+  position: absolute;
+	width: 8.95rem;
+	height: 3.08rem;
+	left: 36.4rem;
+	top: 0rem;
+}
+
+.preloader__logo__letter.g {
+	width: 2.64rem;
+	height: 3.08rem;
+	left: 0rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.h {
+	width: 2.65rem;
+	height: 3.08rem;
+	left: 3.04rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.o {
+	width: 2.86rem;
+	height: 3.07rem;
+	left: 6.09rem;
+	top: 0rem;
+}
+
+.preloader__logo__letter.o__o__2 {
+	width: 1.33rem;
+	height: 3.07rem;
+	left: 1.53rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__logo__letter.o__o__1 {
+	width: 1.32rem;
+	height: 3.07rem;
+	left: 0rem;
+	top: 0rem;
+	transform: matrix(1,0,0,1,0,0);
+}
+
+.preloader__progress__bar__wrapper {
+	position: absolute;
+	width: 75%;
+	height: 0.5rem;
+	left: 12%;
+	top: 90%;
+}
+
+.preloader__progress__bar {
+  @extend %cover;
+  border-radius: 0.2rem;
+  border: 0.01rem solid $color-grey;
+  background: transparent;
+  overflow: hidden;
+}
+
+.preloader__progress {
+  @extend %cover;
+
+  width: 0%;
+  background-color: $color-white;
+}
+
+@keyframes slideInOut {
+  0% {
+
+  }
+}
