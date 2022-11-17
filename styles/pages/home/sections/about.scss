@@ -30,7 +30,7 @@
   overflow: hidden;
 
   @include media('<phone') {
-  font-size: 7.4rem;
+  font-size: 7.2rem;
   letter-spacing: 0.37rem;
   line-height: 9.5rem;
   }
@@ -259,7 +259,7 @@
   }
 }
 .home__about__scrolltext {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -267,11 +267,12 @@
   font-size: 4rem;
   letter-spacing: 0.2rem;
   text-transform: uppercase;
+  text-align: center;
   overflow: hidden;
+  width: 80%;
   // visibility: hidden;
 
   @include media('<phone') {
-  font-size: 2rem;
   letter-spacing: 0.12rem;
   }
 }

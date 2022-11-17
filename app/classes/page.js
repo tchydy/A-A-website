@@ -10,11 +10,13 @@ import Title from "../animations/Title";
 export default class Page {
   constructor({ element, elements }) {
     this.element = element;
-    this.elements = elements
-    this.el = document.querySelector(element)
+    this.elements = elements;
+    this.el = document.querySelector(element);
 
     this.transformPrefix = Prefix('transform');
     gsap.registerPlugin(ScrollTrigger);
+
+    this.scrollDirection();
   }
 
   create() {
@@ -23,10 +25,10 @@ export default class Page {
       target: 0,
       last: 0,
       limit: 0,
-      move:0,
+      move: 0,
     };
-     console.log(this.el);
-    this.createAnimation()
+    console.log(this.el);
+    this.createAnimation();
   }
 
   /**
@@ -43,9 +45,9 @@ export default class Page {
     if (this.elements.wrapper) {
       this.scroll.limit =
         this.elements.wrapper.clientHeight - window.innerHeight;
-      }
-      // document.body.style.height = this.scroll.limit;
-      // console.log(this.scroll.limit, document.body.getBoundingClientRect().height)
+    }
+    // document.body.style.height = this.scroll.limit;
+    // console.log(this.scroll.limit, document.body.getBoundingClientRect().height)
   }
 
   /**
@@ -80,18 +82,12 @@ export default class Page {
 
   smoothScroll() {
     console.log('lenis init', this.el);
-    //   const lenis = new Lenis({
-    // 	lerp: 0.1,
-    // 	smooth: true,
-    // });
+
     const lenis = new Lenis({
       lerp: 0.1,
       smooth: true,
     });
-    // get scroll value
-    // lenis.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-    //   console.log({ scroll, limit, velocity, direction, progress });
-    // });
+
 
     function raf(time) {
       lenis.raf(time);
@@ -101,33 +97,79 @@ export default class Page {
     window.requestAnimationFrame(raf);
   }
 
-  createAnimation () {
-    this.animations = []
-    this.typeSplit =  new SplitType("[data-split]", {
-      types: "words, chars",
-      tagName:"span"
-    })
+  scrollDirection() {
+    this.lastScrollTop = 0;
+    this.currentScroll = 0;
+
+    // element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
+    window.addEventListener('scroll', this.getDirection.bind(this), false);
+    window.addEventListener('touchmove', this.getMobileDirection.bind(this));
+  }
+
+  getDirection() {
+    // or window.addEventListener("scroll"....
+    this.currentScroll =
+      window.pageYOffset || document.documentElement.scrollTop;
+    if (this.currentScroll > this.lastScrollTop) {
+      // downscroll code
+      this.direction = 'down';
+    } else {
+      // upscroll code
+      this.direction = 'up';
+    }
+    this.lastScrollTop = this.currentScroll <= 0 ? 0 : this.currentScroll;
+    // For Mobile or negative scrolling
+    console.log(this.direction, window.pageYOffset)
+  }
+
+  getMobileDirection(e) {
+    this.currentPoint = e.clientX || e.touches[0].clientX;
+    console.log(this.currentPoint);
+    // this.currentPoint = e.originalEvent.changedTouches[0].pageY;
+
+    if (this.lastPoint != null && this.lastPoint < this.currentPoint) {
+      // swiped down
+      console.log('you scrolled up');
+    } else if (this.lastPoint != null && this.lastPoint > this.currentPoint) {
+      // swiped up
+      console.log('you scrolled down');
+    }
+
+    this.lastPoint = this.currentPoint;
+  }
+
+  animatePartials() {
+    console.log(this.direction, window.pageYOffset)
+
+  }
+
+  createAnimation() {
+    this.animations = [];
+    this.typeSplit = new SplitType('[data-split]', {
+      types: 'words, chars',
+      tagName: 'span',
+    });
     this.elementsTitles = document.querySelectorAll('[data-split="title"]');
     this.elementsParagraph = document.querySelectorAll(
       '[data-split="paragraph"]'
     );
 
-    this.elementsTitles.forEach((title) => {
-      const words = [...title.querySelectorAll('.word')]
-      this.animationTitles = map(words, (word, index) => {
-        // return console.log(new Title({
-        //   element: word,
-        //   item: title, }))
-        return new Title({
-          element: title,
-          elements: {
-            title: word,
-            index: index
-          }})
-        })
-        this.animations.push(...this.animationTitles);
-      })
-      // console.log(this.animations)
+    // this.elementsTitles.forEach((title) => {
+    //   const words = [...title.querySelectorAll('.word')];
+    //   this.animationTitles = map(words, (word, index) => {
+    //     // return console.log(new Title({
+    //     //   element: word,
+    //     //   item: title, }))
+    //     return new Title({
+    //       element: title,
+    //       elements: {
+    //         title: word,
+    //         index: index,
+    //       },
+    //     });
+    //   });
+    //   this.animations.push(...this.animationTitles);
+    // });
+    // console.log(this.animations)
   }
-
 }

@@ -1,5 +1,6 @@
 import Prefix from "prefix"
-// import gsap from "gsap";
+import gsap from "gsap";
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Detection from '../classes/detection'
 
 const lerp = (f0, f1, t) => (1 - t) * f0 + t * f1;
@@ -24,6 +25,8 @@ export default class DragScroll {
     this.centerSlide = null
 
     this.transformPrefix = Prefix('transform');
+    gsap.registerPlugin(ScrollTrigger);
+    this.scroll();
   }
 
   init() {
@@ -216,8 +219,8 @@ handleLeftClicks(e) {
   handleTouchMove(e) {
     this.click = false
     if (!this.dragging) return false;
-    const x = e.touches ? e.touches[0].clientX : e.clientX;
-    // const x = e.clientX || e.touches[0].clientX;
+    // const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const x = e.clientX || e.touches[0].clientX;
     this.progress += (this.startX - x) * 2.5;
     this.startX = x;
     this.move();
@@ -257,25 +260,51 @@ handleLeftClicks(e) {
 
   }
 
+  scroll() {
+    const self = this
+     this.tl = gsap.timeline({
+       scrollTrigger: {
+         trigger: '.home__services',
+         start: 'top top',
+         end: `+=${this.wrapWidth} bottom`,
+         toggleActions: 'restart complete none reset',
+         markers: true,
+         pin: true,
+         // scrub: 1,
+         onEnter: () => {
+          //  console.log('services in view', this.wrapWidth);
+         },
+         onLeaveBack: () => {
+         },
+       },
+       onStart: () => {
+       },
+     });
+     this.tl
+       .to('.home__about__scrolltext .word', {
+         y: '100%',
+         opacity: 0,
+       })
+       .to('.home__services__wrapper', {
+         opacity: 1,
+         onComplete: function () {
+           self.inView = true;
+          // console.log('opacity 1', self.inView);
+         },
+       });
+  }
+
   moveSlider () {
     this.sectionTop = this.section.getBoundingClientRect().top;
-    // console.log(this.progress, this.maxScroll);
-    if (this.sectionTop < 10) {
-      console.log('in view', window.scrollY);
-      this.section.classList.add('fixed')
-      this.inView = true;
-      this.raf()
-    } else {
-      this.inView = false;
-    }
+    // console.log(this.progress, this.maxScroll, this.sectionTop);
+    this.raf()
+
   }
 
   raf() {
-    // requestAnimationFrame(this.raf)
-    // console.log(this.sectionTop);
-    // if in view
     if(!this.inView) return
     this.x = lerp(this.x, this.progress, 0.1);
+    // console.log(this.x, this.progress)
     this.playrate = this.x / this.maxScroll;
     //
     this.wrap.style[this.transformPrefix] = `translateX(${-this.x}px)`;

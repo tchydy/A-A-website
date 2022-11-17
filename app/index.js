@@ -14,7 +14,6 @@ class App {
 
     this.createPages();
     this.createPreloader();
-    this.createSlider()
     // this.createAnimations()
     this.addEventListeners();
 
@@ -61,6 +60,8 @@ class App {
     this.page.smoothScroll()
     // call resize anytime page is created
     this.onResize();
+    // call slider when page is created
+    this.createSlider()
   }
 
   // custom cursor
@@ -86,6 +87,7 @@ class App {
     if (this.page && this.page.onWheel) {
       // console.log(event);
       this.page.onWheel(event);
+      // this.page.getDirection();
     }
   }
 
