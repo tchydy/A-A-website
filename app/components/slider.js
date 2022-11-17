@@ -17,6 +17,7 @@ export default class DragScroll {
     // this.section = document.querySelector('.home__services__gallery');
     this.section = document.querySelector('.home__services');
     this.slider = document.querySelector('.home__services__gallery');
+    this.DragText = document.querySelector('.cursor__text1');
     this.init();
     console.log('slider created');
 
@@ -210,14 +211,17 @@ handleLeftClicks(e) {
 
   handleTouchStart(e) {
     e.preventDefault();
+    if(!this.inView) return;
     this.dragging = true;
     this.startX = e.clientX || e.touches[0].clientX;
     this.el.classList.add('dragging');
+    this.DragText.classList.add('none')
     this.click = false
   }
 
   handleTouchMove(e) {
     this.click = false
+    if(!this.inView) return;
     if (!this.dragging) return false;
     // const x = e.touches ? e.touches[0].clientX : e.clientX;
     const x = e.clientX || e.touches[0].clientX;
@@ -229,8 +233,10 @@ handleLeftClicks(e) {
 
   handleTouchEnd() {
     this.click = false;
+    if(!this.inView) return;
     this.dragging = false;
     this.el.classList.remove('dragging');
+    this.DragText.classList.remove('none');
   }
 
 
@@ -242,7 +248,7 @@ handleLeftClicks(e) {
   }
 
   events() {
-    // if(!this.inView) return;
+    // if(!this.inView) return;if(!this.inView) return;
     window.addEventListener('resize', this.calculate);
     window.addEventListener('wheel', this.handleWheel);
     //
@@ -261,37 +267,62 @@ handleLeftClicks(e) {
   }
 
   scroll() {
-    const self = this
-     this.tl = gsap.timeline({
+    const self = this;
+    this.slideY = this.wrapWidth + this.ItemWidth - window.innerWidth;
+    this.tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.home__about',
+        start: 'bottom 10%',
+        toggleActions: 'restart complete none reset',
+        // markers: true,
+        onEnterBack: function () {
+          // console.log('add none');
+          self.DragText.classList.add('none');
+        },
+      },
+    });
+    this.tl
+      .set('.home__about__scrolltext .word', {
+        y: '100%',
+        opacity: 0,
+        duration: 0.5,
+      })
+      .set('.home__services', {
+        opacity: 1,
+        duration: 0.5,
+        ease: 'expo.out',
+        onComplete: function () {
+          self.inView = true;
+          self.DragText.classList.remove('none');
+          // console.log('opacity 1', self.inView);
+        },
+      });
+
+     this.tl1 = gsap.timeline({
        scrollTrigger: {
          trigger: '.home__services',
          start: 'top top',
-         end: `+=${this.wrapWidth} bottom`,
+         //  end: `+=${this.wrapWidth} bottom`,
+         end: `+=${this.slideY}`,
          toggleActions: 'restart complete none reset',
          markers: true,
          pin: true,
-         // scrub: 1,
-         onEnter: () => {
-          //  console.log('services in view', this.wrapWidth);
+         scrub: 1,
+         onLeave: function () {
+          // console.log('add none');
+           self.DragText.classList.add('none');
          },
-         onLeaveBack: () => {
+         onEnterBack: function () {
+          // console.log('add none');
+           self.DragText.classList.remove('none');
          },
-       },
-       onStart: () => {
        },
      });
-     this.tl
-       .to('.home__about__scrolltext .word', {
-         y: '100%',
-         opacity: 0,
-       })
-       .to('.home__services__wrapper', {
-         opacity: 1,
-         onComplete: function () {
-           self.inView = true;
-          // console.log('opacity 1', self.inView);
-         },
-       });
+     this.tl.to('.home__services__gallery ', {
+       y: this.wrapWidth,
+
+     });
+
   }
 
   moveSlider () {
@@ -302,6 +333,7 @@ handleLeftClicks(e) {
   }
 
   raf() {
+    // console.log(this.inView);
     if(!this.inView) return
     this.x = lerp(this.x, this.progress, 0.1);
     // console.log(this.x, this.progress)

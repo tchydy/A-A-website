@@ -29,6 +29,7 @@ class App {
 
   // createPreloader
   createPreloader() {
+    window.scrollTo(0, 0);
     this.preloader = new Preloader();
     this.preloader.once('completed', () => {
       document.body.classList.remove('no-scroll')

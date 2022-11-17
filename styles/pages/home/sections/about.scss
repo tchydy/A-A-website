@@ -104,8 +104,8 @@
 
 .about__idea__media {
   position: absolute;
-  transform: scale(0.1);
-  opacity: 0;
+  // transform: scale(0.1);
+  // opacity: 0;
 
   &::after{
     content: "";
@@ -270,7 +270,10 @@
   text-align: center;
   overflow: hidden;
   width: 80%;
-  // visibility: hidden;
+
+  .word{
+    opacity: 0;
+  }
 
   @include media('<phone') {
   letter-spacing: 0.12rem;

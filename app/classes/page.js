@@ -119,12 +119,12 @@ export default class Page {
     }
     this.lastScrollTop = this.currentScroll <= 0 ? 0 : this.currentScroll;
     // For Mobile or negative scrolling
-    console.log(this.direction, window.pageYOffset)
+    // console.log(this.direction, window.pageYOffset)
   }
 
   getMobileDirection(e) {
     this.currentPoint = e.clientX || e.touches[0].clientX;
-    console.log(this.currentPoint);
+    console.log(this.currentPoint, );
     // this.currentPoint = e.originalEvent.changedTouches[0].pageY;
 
     if (this.lastPoint != null && this.lastPoint < this.currentPoint) {
