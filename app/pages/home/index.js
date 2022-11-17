@@ -20,7 +20,7 @@ export default class Home extends Page {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    this.direction = null;
+
 
 
   }
@@ -108,8 +108,8 @@ export default class Home extends Page {
           end: '2500 bottom',
           toggleActions: 'restart complete restart reset',
           // markers: true,
-          scrub: 1,
-          pin: '.home__about',
+          // scrub: 1,
+          // pin: '.home__about',
         },
         onComplete: () => {
           // console.log('about end');

@@ -1,0 +1,11 @@
+/*! ../../classes/detection */
+
+/*! ../../classes/page */
+
+/*! gsap */
+
+/*! gsap/ScrollTrigger */
+
+/*!*********************************!*\
+  !*** ./app/pages/home/index.js ***!
+  \*********************************/
