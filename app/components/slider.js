@@ -18,6 +18,9 @@ export default class DragScroll {
     this.section = document.querySelector('.home__services');
     this.slider = document.querySelector('.home__services__gallery');
     this.DragText = document.querySelector('.cursor__text1');
+    this.progressNumber = document.querySelector(
+      '.home__services__nav__progress__progress__number'
+    );
     this.init();
     console.log('slider created');
 
@@ -99,6 +102,7 @@ export default class DragScroll {
 
       if (this.isCenter) {
         this.centerSlide = item
+        this.centerSlideIndex = index;
         this.centerSlide.classList.add('active');
         // console.log(
         //   itemTitleSpans[0].innerHTML,
@@ -135,6 +139,7 @@ export default class DragScroll {
 
         if (this.isCenter) {
           this.centerSlide = item;
+          this.centerSlideIndex = index
           this.centerSlide.classList.add('active');
           // console.log(
           //   itemTitleSpans[0].innerHTML,
@@ -181,6 +186,7 @@ handleLeftClicks(e) {
      setTimeout(() => {
        this.progress = this.maxScroll;
        this.slideEnd.classList.add('active')
+       this.centerSlideIndex = this.items.length - 1;
       }, 1000);
     }
   }
@@ -204,6 +210,7 @@ handleLeftClicks(e) {
       setTimeout(() => {
         this.progress = this.minScroll;
         this.slideStart.classList.add('active');
+        this.centerSlideIndex = 0
       }, 1000);
     }
     // console.log('gallery end', this.items[0]);
@@ -287,8 +294,9 @@ handleLeftClicks(e) {
         opacity: 0,
         duration: 0.5,
       })
-      .set('.home__services', {
+      .to('.home__services', {
         opacity: 1,
+        delay: 0.5,
         duration: 0.5,
         ease: 'expo.out',
         onComplete: function () {
@@ -338,6 +346,11 @@ handleLeftClicks(e) {
     this.x = lerp(this.x, this.progress, 0.1);
     // console.log(this.x, this.progress)
     this.playrate = this.x / this.maxScroll;
+    // this.progressNum = Math.round((0.18 + this.playrate * 0.82) * 7);
+    this.progressNum = this.centerSlideIndex + 1;
+    // console.log(this.centerSlideIndex + 1);
+    //
+    this.progressNumber.innerHTML = `0${this.progressNum}/07`
     //
     this.wrap.style[this.transformPrefix] = `translateX(${-this.x}px)`;
     this.bar.style[this.transformPrefix] = `scaleX(${0.18 + this.playrate * 0.82})`;

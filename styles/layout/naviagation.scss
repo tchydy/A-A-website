@@ -20,6 +20,12 @@
   border-bottom: 0.025rem solid #F9F9F96E;
   background: $color-header;
   color: $color-white;
+  transition: all .4s ease-in-out;
+}
+
+.navigation__wrapper.hide{
+  border-bottom: none;
+  // background: transparent;
 }
 .navigation__bg {
   @extend %cover;
@@ -64,6 +70,7 @@
 	height: 2.1rem;
 	left: 2.4rem;
 	top: 0rem;
+  transition: all .4s ease-in-out;
 
   .l {
 	width: 1.5rem;
@@ -165,6 +172,7 @@
 	height: 2.06rem;
 	left: 0rem;
 	top: 0rem;
+  transition: all .4s ease-in-out;
 
   .a__left {
 	width: 2.15rem;
@@ -172,12 +180,14 @@
 	left: 0rem;
 	top: 0rem;
 	transform: matrix(1,0,0,1,0,0);
+  transition: all .4s ease-in-out;
   }
   .dash {
 	width: 1.41rem;
 	height: 0.24rem;
 	left: 20rem;
 	top: 0.95rem;
+  transition: all .4s ease-in-out;
   }
   .a__right {
 	width: 2.15rem;
@@ -185,6 +195,7 @@
 	left: 22.3rem;
 	top: 0rem;
 	transform: matrix(1,0,0,1,0,0);
+  transition: all .4s ease-in-out;
   }
 }
 .navigation__logo__letters__right__span {
@@ -193,6 +204,7 @@
 	height: 2.06rem;
 	left: 24.3rem;
 	top: 0rem;
+  transition: all .4s ease-in-out;
 
   .g {
 	width: 1.76rem;
@@ -228,6 +240,40 @@
 	top: 0rem;
 	transform: matrix(1,0,0,1,0,0);
   }
+}
+
+.hide .navigation__logo__letters__left__span {
+translate: none;
+rotate: none;
+scale: none;
+opacity: 0;
+transform: translate(-120%);
+}
+
+.hide .navigation__logo__letters__middle {
+translate: none;
+rotate: none;
+scale: none;
+transform: translate(50%);
+  .dash{
+  translate: none;
+  rotate: none;
+  scale: none;
+  transform: translate(-1200%);
+  }
+  .a__right {
+  translate: none;
+  rotate: none;
+  scale: none;
+  transform: translate(-788%);
+  }
+}
+.hide .navigation__logo__letters__right__span {
+translate: none;
+rotate: none;
+scale: none;
+opacity: 0;
+transform: translate(200%);
 }
 
 .navigation__menu {

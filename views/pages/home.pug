@@ -53,8 +53,8 @@ block content
 
               .home__services__gallery__wrapper
                 .home__services__gallery
-                  each service in services
-                    .home__services__service
+                  each service, index in services
+                    .home__services__service(id=`${index + 1}`)
                       figure.home__services__service__image
                         img(data-src=service.data.placeholder_image.url alt=service.data.placeholder_image.alt)
                         .home__services__service__image__overlay

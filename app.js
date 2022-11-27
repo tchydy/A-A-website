@@ -72,24 +72,45 @@ const handleRequest = async (api) => {
   const assets = []
   const meta = await api.getSingle('metadata');
   const preloader = await api.getSingle('preloader');
+  const projects = await api.getAllByType('project');
   const services = await api.getAllByType('service');
   const navigation = await api.getSingle('navigation');
+  // console.log(projects);
+  const allProjects = []
+  projects.forEach((project, index) => {
+    allProjects[index] = {}
+    allProjects[index].projectIndex = index;
+    allProjects[index].name = project.uid;
+    allProjects[index].imageUrl = project.data.image.url;
+    allProjects[index].imageAlt = project.data.image.alt;
+    allProjects[index].category = project.data.service.slug;
+    allProjects[index].tags = []
+    project.data.tags.forEach(item => {
+      allProjects[index].tags.push(item.tag.slug)
+    })
+  });
+  // console.log(allProjects);
+  module.exports = {allProjects};
   return {
     meta,
     preloader,
     navigation,
     assets,
+    allProjects,
   };
 };
 
 app.get('/', async (req, res) => {
-  const api = await initApi(req)
-  const home = await api.getSingle('home')
+  const api = await initApi(req);
+  const home = await api.getSingle('home');
   const defaults = await handleRequest(api);
   const services = await api.getAllByType('service');
-  res.render('pages/home', { home: home.data, ...defaults, services: services, });
-  // console.log(home.data.body);
-  // console.log(...services)
+  res.render('pages/home', {
+    home: home.data,
+    ...defaults,
+    services: services,
+  });
+  // console.log(defaults);
 })
 
 app.get('/about', async (req, res) => {

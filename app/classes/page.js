@@ -4,19 +4,42 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from "split-type";
 import Lenis from "@studio-freight/lenis";
 import Prefix from "prefix"
-import { map } from "lodash"
-import Title from "../animations/Title";
+// import { map } from "lodash"
+// import Title from "../animations/Title";
 
 export default class Page {
   constructor({ element, elements }) {
     this.element = element;
     this.elements = elements;
     this.el = document.querySelector(element);
+    this.nav = document.querySelector('.navigation__wrapper');
+
+    this.elements = {
+      container: document.querySelector('.navigation__logo__container'),
+      left: document.querySelector('.navigation__logo__letters__left__span '),
+      middle: document.querySelector('.navigation__logo__letters__middle'),
+      a_left: document.querySelector('.navigation__logo__letter.a__left'),
+      dash: document.querySelector('.navigation__logo__letter.dash'),
+      a_right: document.querySelector('.navigation__logo__letter.a__right'),
+      right: document.querySelector('.navigation__logo__letters__right__span'),
+      nav_menu: document.querySelector('.navigation__menu'),
+    };
 
     this.transformPrefix = Prefix('transform');
     gsap.registerPlugin(ScrollTrigger);
 
     this.scrollDirection();
+
+    this.tls = gsap.timeline({
+      paused: true,
+      defaults: {
+        ease: 'expo.out',
+        duration: 0.1,
+      },
+    });
+
+    this.animatePartials()
+
   }
 
   create() {
@@ -88,7 +111,6 @@ export default class Page {
       smooth: true,
     });
 
-
     function raf(time) {
       lenis.raf(time);
       window.requestAnimationFrame(raf);
@@ -113,34 +135,87 @@ export default class Page {
     if (this.currentScroll > this.lastScrollTop) {
       // downscroll code
       this.direction = 'down';
+      // if(this.currentScroll >= 200){
+      //   console.log('hide');
+      // }
+      // add a class
     } else {
       // upscroll code
       this.direction = 'up';
+      // remove class
     }
     this.lastScrollTop = this.currentScroll <= 0 ? 0 : this.currentScroll;
     // For Mobile or negative scrolling
     // console.log(this.direction, window.pageYOffset)
+    if(this.direction === 'down' && window.pageYOffset > 270 ) {
+      this.downScroll()
+    } else {
+      this.upScroll();
+    }
   }
 
   getMobileDirection(e) {
     this.currentPoint = e.clientX || e.touches[0].clientX;
-    console.log(this.currentPoint, );
+    console.log(this.currentPoint);
     // this.currentPoint = e.originalEvent.changedTouches[0].pageY;
 
     if (this.lastPoint != null && this.lastPoint < this.currentPoint) {
       // swiped down
-      console.log('you scrolled up');
+      // console.log('you scrolled up');
+      this.direction = 'up';
+      this.upScroll();
     } else if (this.lastPoint != null && this.lastPoint > this.currentPoint) {
       // swiped up
-      console.log('you scrolled down');
+      // console.log('you scrolled down');
+      this.direction = 'down';
+      if(this.currentPoint >= 200) {
+        console.log('hide');
+        this.downScroll()
+
+      }
     }
 
     this.lastPoint = this.currentPoint;
   }
 
   animatePartials() {
-    console.log(this.direction, window.pageYOffset)
+    this.tls
+      // .addLabel('start', '1.5')
+      .to(this.elements.left, { x: '-120%', opacity: 0 }, '0')
+      .to(this.elements.right, { x: '200%', opacity: 0 }, '0')
+      .to(this.elements.middle, { x: '50%' }, '0')
+      .to(this.elements.dash, { x: '-1200%' }, '0')
+      .to(this.elements.a_right, { x: '-788%' }, '0')
+      .to(
+        this.elements.nav_menu,
+        { y: '-200%',  autoAlpha: 0 },
+        '0'
+      )
+      .to(
+        '.socials__links a',
+        {
+          autoAlpha: 0,
+          y: '100%',
+          stagger: 0.2,
+          ease: 'expo.out',
+        },
+        '-=1'
+      )
+      .to(
+        '.socials__get__in__touch',
+        { autoAlpha: 0, y: '100%', ease: 'expo.out' },
+        '-=1'
+      );
+  }
 
+  downScroll() {
+    this.nav.classList.add('hide');
+    // this.tls.play();
+  }
+
+  upScroll() {
+    this.nav.classList.remove('hide');
+    // this.tls.reset()
   }
 
   createAnimation() {
