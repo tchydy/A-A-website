@@ -15,7 +15,6 @@
 .navigation__wrapper {
   @extend %cover;
 
-  pointer-events: none;
   position: relative;
   border-bottom: 0.025rem solid #F9F9F96E;
   background: $color-header;
@@ -39,6 +38,7 @@
   height: 5.4rem;
   transform: translate(-50%, -50%);
   visibility: hidden;
+  cursor: pointer;
 }
 .navigation__logo__container {
   @extend %cover;
@@ -299,6 +299,7 @@ transform: translate(200%);
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 }
 .navigation__menu__bar {
   width: 100%;

@@ -120,9 +120,9 @@ export default class Home extends Page {
         },
       });
 
-      gsap.set('.home__services', {
-          opacity: 0,
-        })
+      gsap.set('.home__services__wrapper', {
+        opacity: 0,
+      });
       this.tl2
         .to('.home__about__transition__white', { scaleY: 1, duration: 0.3, ease: 'power1.out', })
         .to('.home__about__transition__black', { scaleY: 1, duration: 0.3, ease: 'power1.out', })

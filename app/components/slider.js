@@ -16,6 +16,7 @@ export default class DragScroll {
     this.rightBtn = document.querySelector('.btn__right');
     // this.section = document.querySelector('.home__services__gallery');
     this.section = document.querySelector('.home__services');
+    this.wrapper = document.querySelector('.home__services__wrapper');
     this.slider = document.querySelector('.home__services__gallery');
     this.DragText = document.querySelector('.cursor__text1');
     this.progressNumber = document.querySelector(
@@ -124,11 +125,11 @@ export default class DragScroll {
         if (this.rightClick) {
           this.itemBoundsLeft =
             item.getBoundingClientRect().left - this.ItemWidth;
-            // console.log('right click');
+            console.log('right click');
           } else {
             this.itemBoundsLeft =
             item.getBoundingClientRect().left + this.ItemWidth;
-            // console.log('left click');
+            console.log('left click');
         }
 
         // const itemTitleSpans = item.querySelectorAll('span');
@@ -141,13 +142,6 @@ export default class DragScroll {
           this.centerSlide = item;
           this.centerSlideIndex = index
           this.centerSlide.classList.add('active');
-          // console.log(
-          //   itemTitleSpans[0].innerHTML,
-          //   this.centerSlide,
-          //   this.itemBoundsLeft,
-          //   this.windowLeft,
-          //   this.windowCenter
-          // );
         } else {
           item.classList.remove('active');
         }
@@ -166,6 +160,7 @@ export default class DragScroll {
 
 handleLeftClicks(e) {
 	this.rightClick = false
+  console.log('left click');
   this.progress -= this.ItemWidth;
   this.activeSlideClick();
 
@@ -194,6 +189,7 @@ handleLeftClicks(e) {
   handleRightClicks(e) {
 		this.clicked = true;
 		this.rightClick = true;
+    console.log('right click');
     this.progress += this.ItemWidth;
     this.activeSlideClick();
     // if at the end of gallery move to start of slide
@@ -252,6 +248,7 @@ handleLeftClicks(e) {
     this.progress = clamp(this.progress, this.minScroll, this.maxScroll);
       this.activeSlide();
 
+
   }
 
   events() {
@@ -262,7 +259,7 @@ handleLeftClicks(e) {
     this.rightBtn.addEventListener('click', this.handleRightClicks);
     this.leftBtn.addEventListener('click', this.handleLeftClicks);
     //
-    this.section.addEventListener('touchstart', this.handleTouchStart);
+    this.el.addEventListener('touchstart', this.handleTouchStart);
     window.addEventListener('touchmove', this.handleTouchMove);
     window.addEventListener('touchend', this.handleTouchEnd);
     //
@@ -290,55 +287,81 @@ handleLeftClicks(e) {
         opacity: 0,
         duration: 0.5,
       })
-
-
-     this.tl1 = gsap.timeline({
-       scrollTrigger: {
-         trigger: '.home__services',
-         start: 'top top',
-         //  end: `+=${this.wrapWidth} bottom`,
-         end: `+=${this.slideY}`,
-         toggleActions: 'restart complete none reset',
-        //  markers: true,
-         pin: true,
-         scrub: 1,
-         onEnter: function () {
-          self.section.classList.add('in-view')
-        },
-        onLeave: function () {
-          // console.log('add none');
-          self.DragText.classList.add('none');
-          self.section.classList.remove('in-view')
-        },
-        onLeaveBack: function () {
-          self.DragText.classList.add('none');
-          self.section.classList.remove('in-view')
-        },
-        onEnterBack: function () {
-          // console.log('add none');
-          self.section.classList.add('in-view')
-           self.DragText.classList.remove('none');
-         },
-       },
-     });
-     this.tl
-     .to(
-        '.home__services',
-        {
-          opacity: 1,
-          delay: 5,
-          duration: 0.5,
-          ease: 'expo.out',
-          onComplete: function () {
-            self.inView = true;
-            self.DragText.classList.remove('none');
-            // console.log('opacity 1', self.inView);
+      if (Detection.isDesktop() || Detection.isTablet()) {
+        this.tl1 = gsap.timeline({
+          scrollTrigger: {
+            trigger: '.home__services',
+            start: 'top top',
+            //  end: `+=${this.wrapWidth} bottom`,
+            end: `+=${this.slideY}`,
+            toggleActions: 'restart complete none reset',
+            //  markers: true,
+            pin: '.home__services',
+            scrub: 1,
+            onEnter: function () {
+              self.section.classList.add('in-view');
+            },
+            onLeave: function () {
+              // console.log('add none');
+              self.DragText.classList.add('none');
+              self.section.classList.remove('in-view');
+            },
+            onLeaveBack: function () {
+              self.DragText.classList.add('none');
+              self.section.classList.remove('in-view');
+            },
+            onEnterBack: function () {
+              // console.log('add none');
+              self.section.classList.add('in-view');
+              self.DragText.classList.remove('none');
+            },
           },
-        }
-      )
-     .to('.home__services__gallery ', {
-       y: this.wrapWidth,
-     });
+        });
+      } else {
+        this.tl1 = gsap.timeline({
+          scrollTrigger: {
+            trigger: '.home__services',
+            start: 'top top',
+            end: 'bottom top',
+            toggleActions: 'restart complete none reset',
+            markers: true,
+            pin: true,
+            onEnter: function () {
+              self.section.classList.add('in-view');
+            },
+            onLeave: function () {
+              self.section.classList.remove('in-view');
+            },
+            onLeaveBack: function () {
+              self.section.classList.remove('in-view');
+            },
+            onEnterBack: function () {
+              self.section.classList.add('in-view');
+            },
+            onUpdate: function (scroll) {
+              self.scrollSlider = scroll.progress * self.slideY;
+              self.progress =+ self.scrollSlider
+              self.move()
+              console.log(self.progress, self.scrollSlider);
+            },
+          },
+        });
+      }
+     this.tl
+       .from('.home__services__gallery__wrapper', {
+        display: 'none',
+       })
+       .to('.home__services__wrapper', {
+         opacity: 1,
+         delay: 5,
+         duration: 0.5,
+         ease: 'expo.out',
+         onComplete: function () {
+           self.inView = true;
+           self.DragText.classList.remove('none');
+           // console.log('opacity 1', self.inView);
+         },
+       });
 
      if(!this.section.classList.contains('in-view')) {
       this.DragText.classList.add('none')
