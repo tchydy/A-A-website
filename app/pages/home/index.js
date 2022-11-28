@@ -61,17 +61,25 @@ export default class Home extends Page {
         transformOrigin: 'top',
         opacity: 0,
       })
-      .from('.socials__links a', {
-        autoAlpha: 0,
-        y: '100%',
-        duration: 1,
-        stagger: 0.2,
-        ease: 'expo.out',
-      },'-=1')
       .from(
-        '.socials__get__in__touch',
-        { autoAlpha: 0, y: '100%', duration: 1, ease: 'expo.out' },
+        '.socials',
+        {
+          autoAlpha: 0,
+          y: '100%',
+          duration: 1,
+          ease: 'expo.out',
+        },
         '-=1'
+      )
+      .from(
+        '.socials__links a ',
+        {
+          autoAlpha: 0,
+          y: '100%',
+          duration: 1,
+          stagger: 0.2,
+          ease: 'expo.out',
+        },
       )
       .from(
         '.home__hero__discover',
@@ -107,30 +115,30 @@ export default class Home extends Page {
           start: 'bottom 80%',
           end: 'bottom 20%',
           toggleActions: 'restart complete resume reset',
-          // onEnter: () => this.tl2.restart(),
-          // onEnterBack: () => this.tl2.restart(),
-          markers: true,
+          // markers: true,
           // scrub: 1,
-        },
-        onUpdate: function () {
-          // console.log('scroll', window.pageYOffset);
         },
       });
 
+      gsap.set('.home__services', {
+          opacity: 0,
+        })
       this.tl2
-        .to('.home__about__transition__white', { scaleY: 1, duration: 0.3 })
-        .to('.home__about__transition__black', { scaleY: 1, duration: 0.3 })
-        .set('.home__about, .home__services', {
+        .to('.home__about__transition__white', { scaleY: 1, duration: 0.3, ease: 'power1.out', })
+        .to('.home__about__transition__black', { scaleY: 1, duration: 0.3, ease: 'power1.out', })
+        .set('.home__about', {
           opacity: 0,
         })
         .to('.home__about__transition__white', {
           scaleY: 0,
           duration: 0.4,
+          ease: 'power1.in',
           transformOrigin: 'top',
         })
         .to('.home__about__transition__black', {
           scaleY: 0,
           duration: 0.3,
+          ease: 'power1.in',
           transformOrigin: 'top',
         })
         .fromTo(

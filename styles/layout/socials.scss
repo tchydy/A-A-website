@@ -13,12 +13,14 @@
     width: 68.8rem;
   }
 }
+
 .socials__links {
   @extend %between;
 
   width: 11.7rem;
   height: 100%;
   padding: 0.745rem 1.74rem;
+  transition: all .4s ease-in-out;
 
   a{
     fill: $color-white;
@@ -36,7 +38,7 @@
   width: 1.5rem;
   height: 1.5rem;
 }
-.socials__get__in__touch {
+.get__in__touch {
   @extend %center;
 
   width: 11.7rem;
@@ -46,5 +48,15 @@
   line-height: 1.7rem;
   text-transform: capitalize;
   text-decoration: underline;
+  transition: all .4s ease-in-out .3s;
 }
-
+.socials.hide{
+  .socials__links{
+  transform: translateY(100%);
+  opacity: 0;
+  }
+  // .get__in__touch{
+  // transform: translateY(100%);
+  // opacity: 0;
+  // }
+}

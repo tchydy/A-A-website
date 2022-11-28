@@ -115,9 +115,9 @@ class App {
   addEventListeners() {
     window.addEventListener('mousewheel', this.onWheel.bind(this));
     window.addEventListener('wheel', this.onWheel.bind(this));
-    // window.addEventListener('wheel', (e) => {
-    //   console.log(e.deltaY);
-    // });
+    window.addEventListener('load', () => {
+      window.scrollTo(0, 0);
+    });
   }
 }
 

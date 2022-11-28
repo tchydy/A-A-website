@@ -282,29 +282,15 @@ handleLeftClicks(e) {
         start: 'bottom 10%',
         toggleActions: 'restart complete none reset',
         // markers: true,
-        onEnterBack: function () {
-          // console.log('add none');
-          self.DragText.classList.add('none');
-        },
       },
     });
     this.tl
-      .set('.home__about__scrolltext .word', {
+      .to('.home__about__scrolltext .word', {
         y: '100%',
         opacity: 0,
         duration: 0.5,
       })
-      .to('.home__services', {
-        opacity: 1,
-        delay: 0.5,
-        duration: 0.5,
-        ease: 'expo.out',
-        onComplete: function () {
-          self.inView = true;
-          self.DragText.classList.remove('none');
-          // console.log('opacity 1', self.inView);
-        },
-      });
+
 
      this.tl1 = gsap.timeline({
        scrollTrigger: {
@@ -313,22 +299,45 @@ handleLeftClicks(e) {
          //  end: `+=${this.wrapWidth} bottom`,
          end: `+=${this.slideY}`,
          toggleActions: 'restart complete none reset',
-         markers: true,
+        //  markers: true,
          pin: true,
          scrub: 1,
-         onLeave: function () {
+         onEnter: function () {
+          self.section.classList.add('in-view')
+        },
+        onLeave: function () {
           // console.log('add none');
-           self.DragText.classList.add('none');
-         },
-         onEnterBack: function () {
+          self.DragText.classList.add('none');
+          self.section.classList.remove('in-view')
+        },
+        onLeaveBack: function () {
+          self.DragText.classList.add('none');
+          self.section.classList.remove('in-view')
+        },
+        onEnterBack: function () {
           // console.log('add none');
+          self.section.classList.add('in-view')
            self.DragText.classList.remove('none');
          },
        },
      });
-     this.tl.to('.home__services__gallery ', {
+     this.tl
+     .to(
+        '.home__services',
+        {
+          opacity: 1,
+          delay: 5,
+          duration: 0.5,
+          ease: 'expo.out',
+          onComplete: function () {
+            self.inView = true;
+            self.DragText.classList.remove('none');
+            // console.log('opacity 1', self.inView);
+          },
+        }
+      )
+     .to('.home__services__gallery ', {
        y: this.wrapWidth,
-
      });
 
   }
