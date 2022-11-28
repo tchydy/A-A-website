@@ -260,8 +260,8 @@ handleLeftClicks(e) {
     this.leftBtn.addEventListener('click', this.handleLeftClicks);
     //
     this.el.addEventListener('touchstart', this.handleTouchStart);
-    window.addEventListener('touchmove', this.handleTouchMove);
-    window.addEventListener('touchend', this.handleTouchEnd);
+    this.el.addEventListener('touchmove', this.handleTouchMove);
+    this.el.addEventListener('touchend', this.handleTouchEnd);
     //
     window.addEventListener('mousedown', this.handleTouchStart);
     window.addEventListener('mousemove', this.handleTouchMove);
