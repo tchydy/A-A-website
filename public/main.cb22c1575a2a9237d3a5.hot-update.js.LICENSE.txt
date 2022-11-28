@@ -1,0 +1,11 @@
+/*! ../classes/detection */
+
+/*! gsap */
+
+/*! gsap/ScrollTrigger */
+
+/*! prefix */
+
+/*!**********************************!*\
+  !*** ./app/components/slider.js ***!
+  \**********************************/

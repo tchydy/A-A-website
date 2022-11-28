@@ -262,7 +262,7 @@ handleLeftClicks(e) {
     this.rightBtn.addEventListener('click', this.handleRightClicks);
     this.leftBtn.addEventListener('click', this.handleLeftClicks);
     //
-    this.el.addEventListener('touchstart', this.handleTouchStart);
+    this.section.addEventListener('touchstart', this.handleTouchStart);
     window.addEventListener('touchmove', this.handleTouchMove);
     window.addEventListener('touchend', this.handleTouchEnd);
     //
@@ -340,6 +340,9 @@ handleLeftClicks(e) {
        y: this.wrapWidth,
      });
 
+     if(!this.section.classList.contains('in-view')) {
+      this.DragText.classList.add('none')
+     }
   }
 
   moveSlider () {
