@@ -344,12 +344,10 @@ handleLeftClicks(e) {
               self.scrollSlider = scroll.progress * self.slideY;
               self.progress = +self.scrollSlider;
               self.move();
-              scroll.markerEnd.innerHTML = `start: ${self.progress}`
-              // console.log(
-              //   self.progress,
-              //   self.scrollSlider,
-              //   scroll.markerEnd.innerHTML
-              // );
+              scroll.markerEnd.textContent = `end: ${self.progress.toFixed(2)}`;
+              console.log(
+                // scroll.markerEnd.textContent
+              );
             },
           },
         });
