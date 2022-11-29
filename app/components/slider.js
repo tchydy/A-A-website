@@ -299,6 +299,7 @@ handleLeftClicks(e) {
             pin: '.home__services',
             scrub: 1,
             onEnter: function () {
+              self.inView = true;
               self.section.classList.add('in-view');
             },
             onLeave: function () {
@@ -324,9 +325,10 @@ handleLeftClicks(e) {
             start: 'top top',
             end: 'bottom top',
             toggleActions: 'restart complete none reset',
-            markers: true,
+            markers: { startColor: 'white', start : 'services' },
             pin: true,
             onEnter: function () {
+              self.inView = true;
               self.section.classList.add('in-view');
             },
             onLeave: function () {
@@ -340,9 +342,14 @@ handleLeftClicks(e) {
             },
             onUpdate: function (scroll) {
               self.scrollSlider = scroll.progress * self.slideY;
-              self.progress =+ self.scrollSlider
-              self.move()
-              console.log(self.progress, self.scrollSlider);
+              self.progress = +self.scrollSlider;
+              self.move();
+              scroll.markerEnd.innerHTML = `start: ${self.progress}`
+              // console.log(
+              //   self.progress,
+              //   self.scrollSlider,
+              //   scroll.markerEnd.innerHTML
+              // );
             },
           },
         });
