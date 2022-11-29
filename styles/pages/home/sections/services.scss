@@ -225,7 +225,9 @@
 
   @include media('<phone') {
     // top: 129.2rem;
-    left: 3rem;
+    width: 14.25rem;
+    height: 6rem;
+    left: 4rem;
   }
 }
 
@@ -239,6 +241,10 @@
   position: relative;
   overflow: hidden;
 
+  @include media('<phone') {
+    width: 6rem;
+    height: 6rem;
+  }
   &::after{
     content: '';
     position: absolute;
@@ -264,6 +270,10 @@
   width: 2.7rem;
   height: 14rem;
 
+  @include media('<phone') {
+    width: 4rem;
+    height: 21rem;
+  }
   .right__icon {
 
   }
