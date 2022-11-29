@@ -71,8 +71,8 @@ export default class DragScroll {
   calculate() {
     this.windowWidth = window.innerWidth
     this.wrapWidth = this.slider.getBoundingClientRect().width;
-    this.slideY = this.wrapWidth + this.ItemWidth - window.innerWidth;
     this.ItemWidth = this.wrapWidth / this.items.length;
+
     if (Detection.isDesktop() || Detection.isTablet()) {
       this.minScroll = this.wrap.getBoundingClientRect().left - this.ItemWidth;
       this.windowCenter = this.windowWidth / 2 + this.ItemWidth * 0.25;
@@ -273,6 +273,7 @@ handleLeftClicks(e) {
 
   scroll() {
     const self = this;
+    this.slideY = this.wrapWidth + this.ItemWidth - window.innerWidth;
     this.tl = gsap.timeline({
       scrollTrigger: {
         trigger: '.home__about',
@@ -342,12 +343,14 @@ handleLeftClicks(e) {
             },
             onUpdate: function (scroll) {
               self.scrollSlider = scroll.progress * self.slideY;
-              self.progress = +self.scrollSlider;
+              self.progress = (scroll.progress * self.slideY).toFixed(1);
               self.move();
-              scroll.markerEnd.textContent = `end: ${self.progress.toFixed(2)}`;
-              console.log(
-                // scroll.markerEnd.textContent
-              );
+              scroll.markerEnd.innerHTML = `end: ${self.progress}`;
+              // console.log(
+              //   self.progress,
+              //   scroll.progress,
+              //   scroll.markerEnd.innerHTML,
+              // );
             },
           },
         });
