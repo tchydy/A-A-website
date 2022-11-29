@@ -260,9 +260,9 @@ handleLeftClicks(e) {
     this.rightBtn.addEventListener('click', this.handleRightClicks);
     this.leftBtn.addEventListener('click', this.handleLeftClicks);
     //
-    // this.el.addEventListener('touchstart', this.handleTouchStart);
-    // this.el.addEventListener('touchmove', this.handleTouchMove);
-    // this.el.addEventListener('touchend', this.handleTouchEnd);
+    this.el.addEventListener('touchstart', this.handleTouchStart);
+    this.el.addEventListener('touchmove', this.handleTouchMove);
+    this.el.addEventListener('touchend', this.handleTouchEnd);
     //
     window.addEventListener('mousedown', this.handleTouchStart);
     window.addEventListener('mousemove', this.handleTouchMove);
