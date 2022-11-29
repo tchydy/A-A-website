@@ -71,6 +71,7 @@ export default class DragScroll {
   calculate() {
     this.windowWidth = window.innerWidth
     this.wrapWidth = this.slider.getBoundingClientRect().width;
+    this.slideY = this.wrapWidth + this.ItemWidth - window.innerWidth;
     this.ItemWidth = this.wrapWidth / this.items.length;
     if (Detection.isDesktop() || Detection.isTablet()) {
       this.minScroll = this.wrap.getBoundingClientRect().left - this.ItemWidth;
@@ -272,7 +273,6 @@ handleLeftClicks(e) {
 
   scroll() {
     const self = this;
-    this.slideY = this.wrapWidth + this.ItemWidth - window.innerWidth;
     this.tl = gsap.timeline({
       scrollTrigger: {
         trigger: '.home__about',
