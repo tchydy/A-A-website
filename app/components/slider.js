@@ -333,12 +333,15 @@ handleLeftClicks(e) {
               self.section.classList.add('in-view');
             },
             onLeave: function () {
+              self.inView = false;
               self.section.classList.remove('in-view');
             },
             onLeaveBack: function () {
+              self.inView = false;
               self.section.classList.remove('in-view');
             },
             onEnterBack: function () {
+              self.inView = true;
               self.section.classList.add('in-view');
             },
             onUpdate: function (scroll) {
@@ -346,11 +349,6 @@ handleLeftClicks(e) {
               self.progress = (scroll.progress * self.slideY).toFixed(1);
               self.move();
               scroll.markerEnd.innerHTML = `end: ${scroll.progress.toFixed(1)}, ${ self.progress}, `;
-              // console.log(
-              //   self.progress,
-              //   scroll.progress,
-              //   scroll.markerEnd.innerHTML,
-              // );
             },
           },
         });
@@ -379,12 +377,15 @@ handleLeftClicks(e) {
   moveSlider () {
     this.sectionTop = this.section.getBoundingClientRect().top;
     // console.log(this.progress, this.maxScroll, this.sectionTop);
+    if(this.sectionTop <= 10) {
+      this.inView = true
+    }
     this.raf()
 
   }
 
   raf() {
-    // console.log(this.inView);
+    console.log(this.inView);
     if(!this.inView) return
     this.x = lerp(this.x, this.progress, 0.1);
     // console.log(this.x, this.progress)
