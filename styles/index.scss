@@ -6,11 +6,14 @@
 @import './utils/vendors.scss';
 @import './utils/responsive.scss';
 
+@import './shared/links.scss';
+
 @import './base/font.scss';
 @import './base/base.scss';
 
 @import './components/preloader.scss';
 @import './components/cursor.scss';
+@import './components/overlay.scss';
 
 @import './layout/naviagation.scss';
 @import './layout/socials.scss';
@@ -18,3 +21,5 @@
 @import './pages/home/sections/hero.scss';
 @import './pages/home/sections/about.scss';
 @import './pages/home/sections/services.scss';
+@import './pages/home/sections/projects.scss';
+@import './pages/aboutme/aboutme.scss';

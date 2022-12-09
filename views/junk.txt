@@ -306,3 +306,158 @@ names.forEach(name => {
         "imgT"
       )
       toggleActions: 'restart complete restart reset',
+
+
+      gsap.from(word, {
+          scrollTrigger: {
+            trigger: title,
+            start: 'top 60%',
+            toggleActions: 'restart complete restart reset',
+            markers: true,
+          },
+          yPercent: 100,
+          duration: 0.4,
+          ease: 'power1.out',
+          stagger: { amount: 0.2 },
+        });
+
+         // function createScrollTrigger(triggerElement, timeline) {
+    //   // Reset tl when scroll out of view past bottom of screen
+    //   ScrollTrigger.create({
+    //     trigger: triggerElement,
+    //     start: 'top bottom',
+    //     onLeaveBack: () => {
+    //       timeline.progress(0);
+    //       timeline.pause();
+    //     },
+    //   });
+    //   // Play tl when scrolled into view (60% from top of screen)
+    //   ScrollTrigger.create({
+    //     trigger: triggerElement,
+    //     start: 'top 30%',
+    //     markers: true,
+    //     onEnter: () => timeline.play(),
+    //     onEnterBack: () => timeline.play(),
+    //   });
+    // }
+    // console.log(typeSplit.words)
+    this.tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: title,
+          start: 'top 60%',
+          toggleActions: 'restart complete restart reset',
+          markers: true,
+        },
+      });
+
+      // onUpdate: function () {
+      //   // console.log(this.progress());
+      //   console.log(self.direction);
+      //   if(self.direction === "up") return;
+      //   if(this.progress() >= 0.82 ) {
+      //     this.services = document.querySelector('.home__services');
+      //     this.servicesTop = document
+      //       .querySelector('.home__services')
+      //       .getBoundingClientRect().top;
+      //     this.servicesScrollTop =
+      //       window.pageYOffset + (this.servicesTop - 100);
+      //       window.scrollTo(0, this.servicesScrollTop)this.servicesTop = document
+      //       .querySelector('.home__services')
+      //       .getBoundingClientRect().top;
+      //     this.servicesScrollTop =
+      //       window.pageYOffset + (this.servicesTop - 100);
+      //       window.scrollTo(0, this.servicesScrollTop)
+      //     console.log(
+      //       'scroll to services',
+      //       this.servicesScrollTop,
+      //       window.pageYOffset
+      //     );
+      //   }
+
+      // },
+
+    this.tl2.to('.home__about__transition__white', {scaleY:1, duration: 0.3})
+    .to('.home__about__transition__black', {scaleY:1, duration: 0.3})
+    .to('.home__about__transition__white', {scaleY:0, duration: 0.2, transformOrigin: "top"})
+    .to('.home__about__transition__black', {scaleY:0, duration: 0.2, transformOrigin: "top"});
+
+
+       onUpdate: function () {
+              console.log(this.progress());
+              if (this.progress() >= 0.1) {
+                gsap.to(
+                  '.home__about__scrolltext .word',
+                  {
+                    opacity: 1,
+                    y: '0%',
+                    stagger: 0.2,
+                    duration: 0.5,
+                    ease: 'expo.out',
+                  },
+                  '-=0.5'
+                );
+              }
+            },
+
+              // if (this.sectionTop < 10) {
+    //   console.log('in view', window.scrollY);console.log('in view', window.scrollY);
+    //   this.section.classList.add('fixed')
+    //   this.inView = true;
+    // } else {
+    //   this.inView = false;
+    // }
+
+     // requestAnimationFrame(this.raf)
+    // console.log(this.sectionTop);
+    // if in view
+
+
+     onComplete: function () {
+          console.log('scroll', window.pageYOffset);
+            // this.servicesTop = document
+            //   .querySelector('.home__services')
+            //   .getBoundingClientRect().top;
+            // this.servicesScrollTop = window.scrollY + this.servicesTop;
+            // window.scrollTo(0, this.servicesScrollTop);
+            // console.log(
+            //   'scroll to',
+            //   this.servicesScrollTop,
+            //   window.pageYOffset, window.scrollY
+            // );
+
+            // gsap.to('.home__services__wrapper', {opacity:1});
+
+        },
+
+        // get scroll value
+    // lenis.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
+    //   console.log({ scroll, limit, velocity, direction, progress });
+    // });
+
+    //   const lenis = new Lenis({
+    // 	lerp: 0.1,
+    // 	smooth: true,
+    // });
+
+
+    var lastPoint = null; //global
+
+$(window).on('touchend', function(e){
+
+    var currentPoint = e.originalEvent.changedTouches[0].pageY;
+
+    if(lastPoint != null && lastPoint < currentPoint ){
+        //swiped down
+        console.log('you scrolled up');
+
+    }else if(lastPoint != null && lastPoint > currentPoint){
+        //swiped up
+        console.log('you scrolled down');
+    }
+
+    lastPoint = currentPoint;
+});
+
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+}

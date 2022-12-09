@@ -1,0 +1,39 @@
+extends ../_includes/layout
+
+block variables
+  - var template = 'projects'
+
+block content
+  .projects
+    .projects__wrapper
+      .gallery
+        //- column
+        .col
+          each project in projectsCol1
+            figure.column__item
+                img.column__item-img(data-src=project.imageUrl alt=project.imageAlt)
+
+        //- column
+        .col
+          //- each project in projectsCol2
+          //-   figure.column__item
+          //-       img.column__item-img(data-src=project.imageUrl alt=project.imageAlt)
+
+        //- column
+        .col
+          //- each project in projectsCol3
+          //-   figure.column__item
+          //-       img.column__item-img(data-src=project.imageUrl alt=project.imageAlt)
+      //- services nav
+      .service__nav
+        //- .service__nav__bg
+        .service__nav__items
+          a.close(href='#span')
+            span CLOSE
+          .filters
+            a.rendering(href='#rendering')
+              span RENDERING
+            a.next
+              span NEXT
+            a.all(href='#all')
+              span ALL

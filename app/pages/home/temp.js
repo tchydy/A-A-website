@@ -243,3 +243,25 @@ this.tl1
     //     )
 
     // }
+
+
+    //- projects
+  update() {
+    this.columnReverse = document.querySelectorAll('.column-reverse');
+    this.elements.oddColumns.forEach((column) => {
+      gsap.to(column, { y: `${window.scrollY}px` });
+    });
+
+    // window.requestAnimationFrame(this.scrollUpdate);
+  }
+
+
+    // Locomotive scroll event: translate the first and third grid column -1*scrollValue px.
+    this.lenis.on('scroll', (obj) => {
+      // console.log(window.scrollY);
+      this.lastscroll = obj.scroll;
+      this.elements.oddColumns.forEach((column) => {
+        // gsap.to(column, { y: `${window.scrollY}px` });
+        // column.style.transform = `translateY(${this.lastscroll}px)`;
+      });
+    });

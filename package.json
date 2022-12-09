@@ -1,5 +1,5 @@
 {
-  "name": "floema",
+  "name": "A-A website",
   "version": "1.0.0",
   "description": "Webpack boilerplate",
   "scripts": {
@@ -57,13 +57,16 @@
   "dependencies": {
     "@prismicio/client": "^6.2.0",
     "@prismicio/helpers": "^2.1.1",
+    "@prismicio/richtext": "^2.1.1",
     "@studio-freight/lenis": "^0.2.20",
     "connect-livereload": "^0.6.1",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
     "gsap": "^3.8.0",
     "imagemin-loader": "^1.1.1",
+    "imagesloaded": "^5.0.0",
     "include-media": "^1.4.10",
     "install": "^0.13.0",
     "livereload": "^0.9.3",
@@ -71,6 +74,7 @@
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.7",
+    "node-polyfill-webpack-plugin": "^2.0.1",
     "node-sass": "^6.0.1",
     "npm": "^8.19.2",
     "prefix": "^1.0.0",

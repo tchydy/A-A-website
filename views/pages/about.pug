@@ -3,5 +3,36 @@ extends ../_includes/layout
 block variables
     - var template = 'about'
 
-block content 
-  h1.about__title About
+block content
+  .about
+    section.aboutme__hero
+      .home__hero__line__wrapper
+        .home__hero__line
+      .aboutme__hero__wrapper
+        .aboutme__hero__profile
+          h1.profilename___big(data-split="")!=aboutme.profilename
+
+          figure.personal__photo
+            img.profilepic__big(data-src=aboutme.profilepic_big.url alt=aboutme.profilepic_big.alt)
+    section.aboutme__info
+      .about__me_info__wrapper
+        .about__me_info
+          .info__summary
+            h3.info__title=info.summary_title
+            .info__description
+              //- p.info__description__text(data-split="paragraph")=info.summary_description[0].text
+              each text in info.summary_description
+                //- p description
+                p.info__description__text(data-split="paragraph")=text.text
+
+          .info__skills
+            h3.info__title=info.skills_title
+            p.info__description=info.skills_description[0].text
+
+        .contact__wrapper
+          .contact__profile
+            figure.profile__picture
+              img.profilepic__small(data-src=aboutme.profilepic_small.url alt=aboutme.profilepic_small.alt)
+            .enquiry__text=aboutme.enguiry_text
+          .send_an_email=aboutme.contact_text
+

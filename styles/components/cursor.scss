@@ -56,7 +56,16 @@
   top: 50%;
   font-family: $font-amoret-sans;
   font-size: 1.6rem;
+  padding-left: 1rem;
   text-transform: uppercase;
+  display: none;
+}
+.home__services__gallery__wrapper{
+  &:hover{
+    .cursor__text1{
+      display: inline-block;
+    }
+  }
 }
 
 .scroll-circle{
@@ -71,4 +80,7 @@
 }
 .none {
   display: none;
+}
+.show {
+  display: inline-block;
 }

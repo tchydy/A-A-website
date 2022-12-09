@@ -42,9 +42,13 @@
 
 /*! ../../classes/page */
 
+/*! ../../components/slider */
+
 /*! ../classes/detection */
 
 /*! ../modules/logger/index.js */
+
+/*! ../service/index */
 
 /*! ../utils/log.js */
 
@@ -63,8 +67,6 @@
 /*! ./components/cursor */
 
 /*! ./components/preloader */
-
-/*! ./components/slider */
 
 /*! ./createConsoleLogger */
 
@@ -101,6 +103,8 @@
 /*! ./pages/about */
 
 /*! ./pages/home/index */
+
+/*! ./pages/projects */
 
 /*! ./socket.js */
 
@@ -199,11 +203,19 @@
   \**********************************/
 
 /*!************************************!*\
+  !*** ./app/pages/service/index.js ***!
+  \************************************/
+
+/*!************************************!*\
   !*** ./node_modules/gsap/index.js ***!
   \************************************/
 
 /*!*************************************!*\
   !*** ./app/components/preloader.js ***!
+  \*************************************/
+
+/*!*************************************!*\
+  !*** ./app/pages/projects/index.js ***!
   \*************************************/
 
 /*!**************************************!*\

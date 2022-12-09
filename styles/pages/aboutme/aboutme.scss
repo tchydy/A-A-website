@@ -1,0 +1,203 @@
+.about {
+  width: 100vw;
+  overflow-x: hidden;
+
+  .home__hero__line__wrapper {
+    display: none;
+    @include media('<phone') {
+    display: block;
+    top: 80%;
+  }
+  }
+}
+.aboutme__hero__wrapper {
+  // @extend %center;
+  width: 40%;
+  height: 87%;
+  margin: 0 auto ;
+  position: relative;
+  top: 13rem;
+
+  @include media('<phone') {
+    top: 42rem;
+    width: 70rem;
+    height: 80rem;
+  }
+}
+.aboutme__hero__profile {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.profilename___big {
+  width: 100%;
+  height: 23.6rem;
+  font-family: $font-moche-light;
+  font-size: 12rem;
+  text-transform: uppercase;
+  text-align: center;
+  position: absolute;
+  top: 0rem;
+  z-index: 1;
+
+  @include media('<phone') {
+    width: 70rem;
+    height: 22rem;
+    font-size: 10rem;
+  }
+}
+.personal__photo {
+  width: 50.7rem;
+  height: 64rem;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  bottom: 0rem;
+  transform: translateX(-50%);
+}
+.profilepic__big {
+  width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
+  object-fit: cover;
+  opacity: 0.69;
+}
+.about__me_info__wrapper{
+  width: 92%;
+  height: 25%;
+  position: relative;
+  top: 16rem;
+  margin: 0 auto;
+
+  @include media('<phone') {
+    width: 83.2%;
+    height: 80%;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+  }
+}
+.about__me_info {
+  height: 38rem;
+  width: 136rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 23rem;
+
+  @include media('<phone') {
+    width: 100%;
+    height: 68rem;
+  }
+}
+.info__summary {
+  width: 100%;
+  height: 24rem;
+  display: flex;
+  justify-content: space-between;
+
+  @include media('<phone') {
+    flex-direction: column;
+    height: 42.4rem;
+  }
+}
+.info__title {
+  width: 45rem;
+  border-bottom: 1px solid #707070;
+  height: 3rem;
+  font-size: 2rem;
+  line-height: 2.4rem;
+  text-transform: uppercase;
+
+  @include media('<phone') {
+    font-size: 2.4rem;
+    margin-bottom: 3.2rem;
+  }
+}
+.info__description {
+  width: 57rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 2rem;
+  line-height: 2.4rem;
+
+  @include media('<phone') {
+    font-size: 2.4rem;
+    line-height: 2.5rem;
+  }
+}
+
+.info__description__text {
+}
+.info__skills {
+  width: 100%;
+  height: 9.6rem;
+  display: flex;
+  justify-content: space-between;
+
+  @include media('<phone') {
+    flex-direction: column;
+    height: 18rem;
+  }
+}
+.contact__wrapper {
+  width: 100%;
+  height: 10.6rem;
+  border-bottom: 1px solid #707070;
+  border-top: 1px solid #707070;
+  padding: 1.6rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include media('<phone') {
+    display: flex;
+    flex-direction: column;
+    height: 21rem;
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+.contact__profile {
+  width: 45rem;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include media('<phone') {
+    width: 72%;
+  }
+}
+.profile__picture {
+  width: 6.3rem;
+  height: 6.3rem;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.profilepic__small {
+  width: 120%;
+  height: 150%;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+  opacity: 0.69;
+}
+.enquiry__text {
+  width: 32rem;
+  height: 100%;
+  font-size: 2rem;
+  text-transform: uppercase;
+  line-height: 2.4rem;
+}
+.send_an_email {
+  font-size: 8.2rem;
+  text-transform: uppercase;
+  font-family: moche;
+
+    @include media('<phone') {
+      font-size: 7.4rem;
+    }
+}

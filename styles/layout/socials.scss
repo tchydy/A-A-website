@@ -20,7 +20,7 @@
   width: 11.7rem;
   height: 100%;
   padding: 0.745rem 1.74rem;
-  transition: all .4s ease-in-out;
+  transition: all .2s ease-in-out;
 
   a{
     fill: $color-white;
@@ -48,15 +48,34 @@
   line-height: 1.7rem;
   text-transform: capitalize;
   text-decoration: underline;
-  transition: all .4s ease-in-out .3s;
+  transition: all .2s ease-in-out .2s;
+  position: relative;
+
+  .link, .year {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    transition: all .2s ease-in-out .2s;
+  }
+  .year {
+    display: none;
+  }
+}
+.bottom .get__in__touch{
+  .link{
+    display: none;
+  }
+  .year {
+    display: inline-block;
+  }
 }
 .socials.hide{
-  .socials__links{
+  .socials__links, .get__in__touch{
   transform: translateY(100%);
   opacity: 0;
+  display: none;
   }
-  .get__in__touch{
-  transform: translateY(100%);
-  opacity: 0;
-  }
+
 }

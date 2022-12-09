@@ -219,7 +219,6 @@ handleLeftClicks(e) {
     this.dragging = true;
     this.startX = e.clientX || e.touches[0].clientX;
     this.el.classList.add('dragging');
-    this.DragText.classList.add('none')
     this.click = false
   }
 
@@ -240,7 +239,6 @@ handleLeftClicks(e) {
     if(!this.inView) return;
     this.dragging = false;
     this.el.classList.remove('dragging');
-    this.DragText.classList.remove('none');
   }
 
 
@@ -268,6 +266,13 @@ handleLeftClicks(e) {
     window.addEventListener('mousemove', this.handleTouchMove);
     window.addEventListener('mouseup', this.handleTouchEnd);
     document.body.addEventListener('mouseleave', this.handleTouchEnd);
+    const self = this
+    this.slider.addEventListener('mouseenter', () => {
+      self.DragText.classList.add('show');
+    })
+    this.slider.addEventListener('mouseleave', () => {
+      self.DragText.classList.remove('show');
+    })
 
   }
 
@@ -305,17 +310,14 @@ handleLeftClicks(e) {
             },
             onLeave: function () {
               // console.log('add none');
-              self.DragText.classList.add('none');
               self.section.classList.remove('in-view');
             },
             onLeaveBack: function () {
-              self.DragText.classList.add('none');
               self.section.classList.remove('in-view');
             },
             onEnterBack: function () {
               // console.log('add none');
               self.section.classList.add('in-view');
-              self.DragText.classList.remove('none');
             },
           },
         });
@@ -364,14 +366,12 @@ handleLeftClicks(e) {
          ease: 'expo.out',
          onComplete: function () {
            self.inView = true;
-           self.DragText.classList.remove('none');
            // console.log('opacity 1', self.inView);
          },
        });
 
-     if(!this.section.classList.contains('in-view')) {
-      this.DragText.classList.add('none')
-     }
+    //  if(!this.section.classList.contains('in-view')) {
+    //  }
   }
 
   moveSlider () {
@@ -385,7 +385,7 @@ handleLeftClicks(e) {
   }
 
   raf() {
-    console.log(this.inView);
+    // console.log(this.inView);
     if(!this.inView) return
     this.x = lerp(this.x, this.progress, 0.1);
     // console.log(this.x, this.progress)

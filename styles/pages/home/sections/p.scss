@@ -1,0 +1,137 @@
+.projects {
+  --ratio: 0.75;
+	--grid-item-height: 32vw;
+	--grid-item-width: calc(var(--grid-item-height) * var(--ratio));
+	--thumb-height: 5vw;
+	--thumb-width: calc(var(--thumb-height) * var(--ratio));
+
+
+  @include media('<phone') {
+  --grid-item-height: 25vh;
+  }
+  overflow: hidden;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .service__nav{
+    @extend %center;
+    position: fixed;
+    bottom: 0rem;
+    left: 0rem;
+    width: 100%;
+    height: 10rem;
+    z-index: 2;
+    background: linear-gradient(#222 0%, rgba(34, 34, 34, 0.48) 100%);
+
+    // &__bg {
+    //   @extend %cover;
+    // }
+    &__items {
+      @extend %between;
+      width: 92%;
+      font-family: $font-amoret-sans;
+      font-size: 1.2rem;
+      a {
+        @extend %link--hidden;
+      }
+      span {
+        display: inline-block;
+        height: 1.5rem;
+      }
+      .filters {
+        @extend %between;
+        width:26rem;
+      }
+    }
+  }
+
+  .columns {
+	width: 80%;
+  max-width: 158rem;
+	position: relative;
+	// padding: 0 3rem;
+	display: flex;
+	justify-content: space-between;
+  min-height: 100vh;
+
+}
+
+.column-wrap {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	padding: 2vh 0 5vh;
+	// flex-direction: column;
+  overflow: hidden;
+}
+.column-reverse  {
+  flex-direction: column-reverse;
+  height: 100vh;
+  .column{
+    flex-direction: column-reverse;
+  }
+}
+
+
+
+.column {
+  position: relative;
+	display: block;
+  flex-direction: column;
+  display: flex;
+	will-change: transform;
+}
+
+.column__item {
+	margin: 0;
+	position: relative;
+	z-index: 1;
+}
+
+.column__item-imgwrap {
+	width: var(--grid-item-width);
+	height: var(--grid-item-height);
+	position: relative;
+	overflow: hidden;
+	// border-radius: 8px;
+	cursor: pointer;
+	margin: 8vh 1vw 0;
+  transition: all, 2s, ease-in-out .4s;
+
+  &:hover {
+    transform: scale(0.95, 0.88);
+
+    .column__item-img {
+      transform: scale(1.2, 1.7);
+      // transition: all, 2s, ease-in-out;
+    }
+  }
+
+  @include media('<phone') {
+    margin: 2.5vh 1vw 0;
+  }
+}
+
+.column__item-img {
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: 50% 20%;
+  object-fit: cover;
+	backface-visibility: hidden;
+  transition: all, 2s, ease-in-out .4s;
+}
+
+.column__item-caption {
+	text-transform: uppercase;
+	padding: 0 1.5vw;
+	margin-top: 0.5rem;
+  display: flex;
+  gap: 2rem;
+  display: none;
+}
+}

@@ -81,6 +81,7 @@
   height: 1.6rem;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
   // text-decoration: underline;
 
   &::before{
@@ -105,6 +106,11 @@
 
   &.dragging {
     cursor: grabbing;
+  }
+  &:hover {
+    .cursor__text1{
+      display: inline-block;
+    }
   }
 
   @include media('<phone') {
@@ -281,4 +287,5 @@
 
   }
 }
+
 

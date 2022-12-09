@@ -8,6 +8,7 @@ const errorHandler = require('errorhandler');
 const fetch = require('node-fetch');
 const Prismic = require('@prismicio/client');
 const PrismicH = require('@prismicio/helpers');
+const PrismicR = require('@prismicio/richtext');
 
 const uaParser = require('ua-parser-js');
 
@@ -16,9 +17,13 @@ const app = express();
 const path = require('path');
 const { response } = require('express');
 
+const cors =require('cors')
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(cors())
 
 app.use(errorHandler());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -68,6 +73,7 @@ app.use((req, res, next) => {
 });
 
 // =======================All the routes - these can have their own file/folder========================
+
 const handleRequest = async (api) => {
   const assets = []
   const meta = await api.getSingle('metadata');
@@ -89,48 +95,112 @@ const handleRequest = async (api) => {
       allProjects[index].tags.push(item.tag.slug)
     })
   });
-  // console.log(allProjects);
-  module.exports = {allProjects};
+  const projectsColumns = []
+  const projectsCol1 = []
+  const projectsCol2 = []
+  const projectsCol3 = []
+  allProjects.forEach((project, index) => {
+    if (index % 3 === 0) {
+      allProjects[index].projectColumn = "col3"
+      projectsCol3.push(project)
+    } else if (index % 2 === 0) {
+      allProjects[index].projectColumn = "col2"
+      projectsCol2.push(project)
+    } else {
+      allProjects[index].projectColumn = "col1"
+      projectsCol1.push(project)
+    }
+  })
+  projectsColumns.push(projectsCol1, projectsCol2, projectsCol3)
+  projectsColumns.forEach((column, index) => {
+    column.forEach((project) => {
+      if (project.projectColumn === 'col3') {
+        // console.log(project);
+      }
+    })
+  })
+
+  // module.exports = {allProjects};
   return {
     meta,
     preloader,
     navigation,
     assets,
     allProjects,
+    projectsColumns,
+    projectsCol1,
+    projectsCol2,
+    projectsCol3,
   };
 };
+
+// export { handleRequest };
+// const defaults = async (req) => {
+//   const api = await initApi(req);
+// };
+
+app.get('/projectresults', async (req, res) => {
+  const api = await initApi(req);
+  const defaults = await handleRequest(api);
+
+  res.json(defaults.allProjects);
+
+  // res.render('pages/about', {
+  //   allProjects: defaults.allProjects,
+  //   ...defaults,
+  // });
+});
 
 app.get('/', async (req, res) => {
   const api = await initApi(req);
   const home = await api.getSingle('home');
   const defaults = await handleRequest(api);
   const services = await api.getAllByType('service');
+
   res.render('pages/home', {
     home: home.data,
     ...defaults,
     services: services,
   });
-  // console.log(defaults);
+
 })
 
 app.get('/about', async (req, res) => {
+  const api = await initApi(req);
+  const defaults = await handleRequest(api);
+  const aboutme = await api.getAllByType('aboutme');
 
-  const api = await initApi(req)
-  const about = await api.getSingle('about')
+  res.render('pages/about', {
+    allProjects: defaults.allProjects,
+    ...defaults,
+    aboutme: aboutme[0].data,
+    info: aboutme[0].data.aboutmeinfo[0],
+  });
+});
 
-  res.render('pages/about', { portfolioItems: about.data.portfolio })
+app.get('/projects', async (req, res) => {
+  const api = await initApi(req);
+  const defaults = await handleRequest(api);
+  // console.log(defaults.projectsColumns);
+  res.render('pages/projects', {
+    allProjects: defaults.allProjects,
+    ...defaults,
+    projectsColumns: defaults.projectsColumns,
+    projectsCol1: defaults.projectsCol1,
+    projectsCol2: defaults.projectsCol2,
+    projectsCol3: defaults.projectsCol3,
+  });
+});
 
-})
-
-app.get('/about/:uid', async (req, res) => {
-  try {
-    const api = await initApi(req)
-    const portfolio = await api.getByUID('portfolio_item', req.params.uid)
-    res.render('pages/portfolio', { portfolio: portfolio.data })
-  } catch (err) {
-    res.render('pages/Four04')
-  }
-})
+// app.get('/about/:uid', async (req, res) => {
+//   try {
+//     const api = await initApi(req)
+//     const portfolio = await api.getByUID('portfolio_item', req.params.uid)
+//     res.render('pages/portfolio', { portfolio: portfolio.data })
+//   } catch (err) {
+//     res.render('pages/Four04')
+//   }
+// })
 
 // =====================================Undefined routes error handling==================
 app.all('*', async (req, res, next) => {

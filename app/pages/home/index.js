@@ -3,12 +3,15 @@ import gsap from "gsap";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Detection from '../../classes/detection';
 import AnimateImages from "./animateImages";
+import DragScroll from '../../components/slider';
+import Service from '../service/index'
 
 
 export default class Home extends Page {
   constructor() {
     super({
       element: '.home',
+      el: document.querySelector('.home'),
     });
     this.elements = {
       wrapper: document.querySelector('.home__wrapper'),
@@ -26,15 +29,14 @@ export default class Home extends Page {
   }
 
   create() {
-    super.create()
+    super.create();
     this.animateHomeAbout();
-
+    this.createSlider();
   }
 
-
-  animatePageIn () {
+  animatePageIn() {
     console.log('animate home');
-    this.tl = gsap.timeline({ defaults: { ease: 'expo.out'} });
+    this.tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
     this.tl
       .to(this.elements.nav, { y: '0%', autoAlpha: 1, duration: 0.8 })
       .set(this.elements.nav_link, { autoAlpha: 1 })
@@ -71,25 +73,21 @@ export default class Home extends Page {
         },
         '-=1'
       )
-      .from(
-        '.socials__links a ',
-        {
-          autoAlpha: 0,
-          y: '100%',
-          duration: 1,
-          stagger: 0.2,
-          ease: 'expo.out',
-        },
-      )
+      .from('.socials__links a ', {
+        autoAlpha: 0,
+        y: '100%',
+        duration: 1,
+        stagger: 0.2,
+        ease: 'expo.out',
+      })
       .from(
         '.home__hero__discover',
         { autoAlpha: 0, y: '100%', duration: 0.4, ease: 'expo.out' },
         '-=0.5'
       );
-
   }
 
-  animateHomeAbout () {
+  animateHomeAbout() {
     // const self = this;
     this.desktop = Detection.isDesktop();
     this.tablet = Detection.isTablet();
@@ -99,63 +97,88 @@ export default class Home extends Page {
     // const mm = gsap.matchMedia()
     // console.log(mm);
 
-    this.AnimateImages = new AnimateImages()
-
+    this.AnimateImages = new AnimateImages();
 
     if (this.phone) {
-      this.AnimateImages.isPhone()
+      this.AnimateImages.isPhone();
     } else {
-      this.AnimateImages.isDesktop()
+      this.AnimateImages.isDesktop();
     }
 
+    this.tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.home__about',
+        start: 'bottom 80%',
+        end: 'bottom 20%',
+        toggleActions: 'restart complete resume reset',
+        // markers: true,
+        // scrub: 1,
+      },
+    });
 
-      this.tl2 = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.home__about',
-          start: 'bottom 80%',
-          end: 'bottom 20%',
-          toggleActions: 'restart complete resume reset',
-          // markers: true,
-          // scrub: 1,
-        },
-      });
-
-      gsap.set('.home__services__wrapper', {
+    gsap.set('.home__services__wrapper', {
+      opacity: 0,
+    });
+    this.tl2
+      .to('.home__about__transition__white', {
+        scaleY: 1,
+        duration: 0.3,
+        ease: 'power1.out',
+      })
+      .to('.home__about__transition__black', {
+        scaleY: 1,
+        duration: 0.3,
+        ease: 'power1.out',
+      })
+      .set('.home__about', {
         opacity: 0,
-      });
-      this.tl2
-        .to('.home__about__transition__white', { scaleY: 1, duration: 0.3, ease: 'power1.out', })
-        .to('.home__about__transition__black', { scaleY: 1, duration: 0.3, ease: 'power1.out', })
-        .set('.home__about', {
+      })
+      .to('.home__about__transition__white', {
+        scaleY: 0,
+        duration: 0.4,
+        ease: 'power1.in',
+        transformOrigin: 'top',
+      })
+      .to('.home__about__transition__black', {
+        scaleY: 0,
+        duration: 0.3,
+        ease: 'power1.in',
+        transformOrigin: 'top',
+      })
+      .fromTo(
+        '.home__about__scrolltext .word',
+        {
+          y: '100%',
           opacity: 0,
-        })
-        .to('.home__about__transition__white', {
-          scaleY: 0,
+        },
+        {
+          y: '0%',
+          opacity: 1,
           duration: 0.4,
-          ease: 'power1.in',
-          transformOrigin: 'top',
-        })
-        .to('.home__about__transition__black', {
-          scaleY: 0,
-          duration: 0.3,
-          ease: 'power1.in',
-          transformOrigin: 'top',
-        })
-        .fromTo(
-          '.home__about__scrolltext .word',
-          {
-            y: '100%',
-            opacity: 0,
-          },
-          {
-            y: '0%',
-            opacity: 1,
-            duration: 0.4,
-            ease: 'power1.out',
-            stagger: { amount: 0.2 },
-          },
-          '<'
-        );
+          ease: 'power1.out',
+          stagger: { amount: 0.2 },
+        },
+        '<'
+      );
+  }
 
+  createSlider() {
+    this.sliderScroll = new DragScroll({
+      el: '.home__services__gallery__wrapper',
+      wrap: '.home__services__gallery',
+      item: '.home__services__service',
+      bar: '.home__services__nav__progress__progress__bar__progress',
+    });
+    this.allServices = [...document.querySelectorAll('.home__services__service')];
+    this.allServices.forEach((service) => {
+      service.addEventListener('click', () => {
+
+        return new Service({element: service})
+      })
+    })
+  }
+
+  update () {
+    this.sliderScroll.moveSlider()
   }
 }

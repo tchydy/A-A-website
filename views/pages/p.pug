@@ -1,0 +1,63 @@
+extends ../_includes/layout
+
+block variables
+  - var template = 'projects'
+
+block content
+  h1.about__title
+  .projects
+    .projects__wrapper
+      //-  columns
+      .columns
+        //- column-wrap
+        .column-wrap.column-reverse
+          .column__fixed
+            //- column
+            .column
+              each project in projectsCol1
+                figure.column__item
+                  .column__item-imgwrap
+                    img.column__item-img(data-src=project.imageUrl)
+                  figcaption.column__item-caption
+                    each tag in project.tags
+                      span=tag
+
+        //- column-wrap
+        .column-wrap
+          .column__fixed
+            //- column
+            .column
+              each project in projectsCol2
+                figure.column__item
+                  .column__item-imgwrap
+                    img.column__item-img(data-src=project.imageUrl)
+                  figcaption.column__item-caption
+                    each tag in project.tags
+                      span=tag
+
+        //- column-wrap
+        .column-wrap.column-reverse.last
+          .column__fixed
+            //- column
+            .column
+              each project in projectsCol3
+                figure.column__item
+                  .column__item-imgwrap
+                    img.column__item-img(data-src=project.imageUrl)
+                  figcaption.column__item-caption
+                    each tag in project.tags
+                      span=tag
+      //- services nav
+      .service__nav
+        //- .service__nav__bg
+        .service__nav__items
+          a.close
+            span CLOSE
+          .filters
+            a.rendering
+              span RENDERING
+            a.next
+              span NEXT
+            a.all
+              span ALL
+  //-  end of columns
