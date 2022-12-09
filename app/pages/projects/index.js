@@ -54,7 +54,7 @@ export default class Projects extends Page {
     // eslint-disable-next-line no-undef
     const data = await fetch('http://localhost:3000/projectresults');
     this.allProject = await data.json();
-    console.log('content created', this)
+    // console.log('content created', this)
      await this.columnItems(this.allProject);
 
      if (!this.columns[0]) return;

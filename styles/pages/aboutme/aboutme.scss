@@ -79,12 +79,12 @@
   }
 }
 .about__me_info {
-  height: 38rem;
+  height: 42rem;
   width: 136rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 23rem;
+  margin-bottom: 18rem;
 
   @include media('<phone') {
     width: 100%;
@@ -93,7 +93,7 @@
 }
 .info__summary {
   width: 100%;
-  height: 24rem;
+  height: 30rem;
   display: flex;
   justify-content: space-between;
 
@@ -122,11 +122,11 @@
   flex-direction: column;
   justify-content: space-between;
   font-size: 2rem;
-  line-height: 2.4rem;
+  line-height: 2.5rem;
 
   @include media('<phone') {
     font-size: 2.4rem;
-    line-height: 2.5rem;
+    line-height: 3rem;
   }
 }
 

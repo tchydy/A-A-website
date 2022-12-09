@@ -6,7 +6,8 @@ import SplitType from "split-type";
 import Lenis from "@studio-freight/lenis";
 import Prefix from "prefix"
 // import { map } from "lodash"
-// import Title from "../animations/Title";
+import Title from "../animations/Title";
+import Paragraph from "../animations/Paragraph";
 
 export default class Page {
   constructor({ element, elements, el }) {
@@ -148,8 +149,13 @@ export default class Page {
       this.scroll.limit =
         this.elements.wrapper.clientHeight - window.innerHeight;
     }
-    // document.body.style.height = this.scroll.limit;
-    // console.log(this.scroll.limit, document.body.getBoundingClientRect().height)
+    if (this.typeSplit){
+      console.log('revert text')
+      this.typeSplit.revert();
+      this.createAnimation();
+    } else{
+      console.log('text not available')
+    }
   }
 
   /**
@@ -302,32 +308,41 @@ export default class Page {
     this.elementsParagraph = document.querySelectorAll(
       '[data-split="paragraph"]'
     );
-    // this.SplitTypeInstance = new SplitType(this.elementsParagraph, {
-    //   types: 'lines',
-    // });
-    //  wrapLines(this.SplitTypeInstance.lines, 'div', 'oh');
 
     this.typeSplit = new SplitType('[data-split]', {
-      types: 'words, chars',
+      types: 'lines, words, chars',
       tagName: 'span',
     });
 
-    // this.elementsTitles.forEach((title) => {
-    //   const words = [...title.querySelectorAll('.word')];
-    //   this.animationTitles = map(words, (word, index) => {
-    //     // return console.log(new Title({
-    //     //   element: word,
-    //     //   item: title, }))
-    //     return new Title({
-    //       element: title,
-    //       elements: {
-    //         title: word,
-    //         index: index,
-    //       },
-    //     });
-    //   });
-    //   this.animations.push(...this.animationTitles);
-    // });
+    console.log(this.elementsParagraph)
+
+    this.elementsParagraph.forEach((paragraph) => {
+      const lines = [...paragraph.querySelectorAll('.line')];
+      this.animationParagraph = lines.map((line, index) => {
+        return new Paragraph({
+          element: paragraph,
+          elements: {
+            paragraph: line,
+            index: index,
+          },
+        });
+      });
+      this.animations.push(...this.animationParagraph);
+    });
+
+    this.elementsTitles.forEach((title) => {
+      const words = [...title.querySelectorAll('.word')];
+      this.animationTitles = words.map((word, index) => {
+        return new Title({
+          element: title,
+          elements: {
+            title: word,
+            index: index,
+          },
+        });
+      });
+      this.animations.push(...this.animationTitles);
+    });
     // console.log(this.animations)
   }
 }

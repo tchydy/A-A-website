@@ -143,6 +143,8 @@ class App {
    * Listeners
    */
   addEventListeners() {
+    window.addEventListener('resize', this.onResize.bind(this));
+
     window.addEventListener('popstate', this.onPopState.bind(this));
     window.addEventListener('mousewheel', this.onWheel.bind(this));
     window.addEventListener('wheel', this.onWheel.bind(this));
