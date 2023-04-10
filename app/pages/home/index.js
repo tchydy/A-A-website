@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Detection from '../../classes/detection';
 import AnimateImages from "./animateImages";
 import DragScroll from '../../components/slider';
-import Service from '../service/index'
+// import Service from '../service/index'
 
 
 export default class Home extends Page {
@@ -23,6 +23,12 @@ export default class Home extends Page {
     };
 
     gsap.registerPlugin(ScrollTrigger);
+    this.desktop = Detection.isDesktop();
+    this.tablet = Detection.isTablet();
+    this.phone = Detection.isPhone();
+
+    this.clientsGallery = document.querySelector('.clients__gallery');
+    this.clients = document.querySelectorAll('.gallery__item');
 
     // const allProjects = require('../../../app.js');
     // console.log(allProjects)
@@ -32,6 +38,7 @@ export default class Home extends Page {
     super.create();
     this.animateHomeAbout();
     this.createSlider();
+    // this.clientSlider()
   }
 
   animatePageIn() {
@@ -88,15 +95,6 @@ export default class Home extends Page {
   }
 
   animateHomeAbout() {
-    // const self = this;
-    this.desktop = Detection.isDesktop();
-    this.tablet = Detection.isTablet();
-    this.phone = Detection.isPhone();
-    console.log(this.phone);
-
-    // const mm = gsap.matchMedia()
-    // console.log(mm);
-
     this.AnimateImages = new AnimateImages();
 
     if (this.phone) {
@@ -169,16 +167,90 @@ export default class Home extends Page {
       item: '.home__services__service',
       bar: '.home__services__nav__progress__progress__bar__progress',
     });
-    this.allServices = [...document.querySelectorAll('.home__services__service')];
-    this.allServices.forEach((service) => {
-      service.addEventListener('click', () => {
 
-        return new Service({element: service})
-      })
-    })
+    this.allServices = [
+      ...document.querySelectorAll('.home__services__service'),
+    ];
+
+    // this.allServices.forEach((service) => {
+    //   service.addEventListener('click', () => {
+
+    //     return new Service({element: service})
+    //   })
+    // })
   }
 
-  update () {
-    this.sliderScroll.moveSlider()
+  update() {
+    this.sliderScroll.moveSlider();
+    // this.clientSlider();
+  }
+
+  getDirection() {
+    super.getDirection();
+    if (
+      window.innerHeight + window.scrollY + 10 >=
+      document.body.offsetHeight
+    ) {
+      // you're at the bottom of the about page
+      console.log('at the bottom');
+      this.socials.classList.add('bottom');
+      this.socials.classList.remove('hide');
+    } else {
+      this.socials.classList.add('hide');
+      this.socials.classList.remove('bottom');
+    }
+  }
+
+  clientSlider() {
+    console.log(
+      this.clientsGallery.getBoundingClientRect().left,
+      this.clients[0].getBoundingClientRect().left +
+        this.clients[0].getBoundingClientRect().width,
+      this.clientsGallery.getBoundingClientRect().width
+    );
+    this.clients.forEach((e, index) =>{
+      e.style.left = 20 * index + "%";
+    })
+
+    gsap.to('.gallery__item', {
+      left: '-=400%',
+      duration: 20,
+      onUpdate: (e) => {
+        // console.log(e);
+        if (this.clients[0].getBoundingClientRect().left < 0) {
+          console.log(e);
+          // e.style.left = `${this.clientsGallery.getBoundingClientRect().width}px`;
+          // gsap.to(e, {
+          //   left: this.clientsGallery.getBoundingClientRect().width,
+          //   duration: 0,
+          // });
+
+          // gsap.to(e, { left: '-=400%', duration: 20 });
+        }
+      },
+    });
+  //   setInterval(()=>{
+  //     console.log("move");
+  //     this.clients.forEach((e)=>{
+  //     if (
+  //       e.getBoundingClientRect().x < 0
+  //     ) {
+  //       // e.style.left = `${this.clientsGallery.getBoundingClientRect().width}px`;
+  //       gsap.to(e, {
+  //         left: this.clientsGallery.getBoundingClientRect().width,
+  //         duration: 0,
+  //       });
+  //       if(e.getBoundingClientRect().x === this.clientsGallery.getBoundingClientRect().width ) {
+  //         console.log("move again");
+  //       }
+  //       // gsap.to(e, { left: '-=400%', duration: 20 });
+  //     }
+  //     })
+  //   }, 2000)
+  }
+
+  onResize() {
+    super.onResize();
+    // this.createSlider();
   }
 }

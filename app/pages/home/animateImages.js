@@ -217,6 +217,7 @@ export default class AnimateImages {
       .addLabel('time', '1.5')
       .from('.home__about__maintext .word', {
         yPercent: 100,
+        opacity: 0,
         duration: 0.6,
         ease: 'power1.out',
         stagger: { amount: 0.2 },

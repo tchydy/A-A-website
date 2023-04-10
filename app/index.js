@@ -7,6 +7,14 @@ import Preloader from './components/preloader'
 import About from './pages/about';
 import Home from './pages/home/index'
 import Projects from './pages/projects';
+import Service from './pages/service';
+import Renderings from './pages/renderings';
+import Interactive from './pages/interactive'
+import Animation from './pages/animation'
+import Modeling from './pages/modeling'
+import VirtualReality from './pages/virtualreality'
+import Panorama from './pages/panorama'
+import Web3d from './pages/web3d'
 
 class App {
   constructor() {
@@ -14,7 +22,7 @@ class App {
 
     this.createPages();
     this.createPreloader();
-    // this.createAnimations()
+    this.createAnimations();
     this.addEventListeners();
     this.addLinkListeners();
 
@@ -48,10 +56,18 @@ class App {
       home: new Home(),
       about: new About(),
       projects: new Projects(),
+      service: new Service(),
+      renderings: new Renderings(),
+      interactive: new Interactive(),
+      animation: new Animation(),
+      modeling: new Modeling(),
+      virtualReality: new VirtualReality(),
+      panorama: new Panorama(),
+      web3d: new Web3d(),
     };
     this.page = this.pages[this.template]; // now we always have access to curent page on screen
     this.page.create();
-    this.page.smoothScroll();
+    // this.page.smoothScroll();
     // call resize anytime page is created
     this.onResize();
     // call slider when page is created and when page template is home
@@ -65,6 +81,8 @@ class App {
       this.cursor.createCursor();
     }
   }
+
+
 
   async onLocalLinkClick({ url, push = true }) {
     await this.page.animateOut();
@@ -88,7 +106,7 @@ class App {
       // console.log(divContent, this.content);
 
       this.page = this.pages[this.template];
-      this.page.create();
+      await this.page.create();
       await this.page.animateIn();
 
       this.addLinkListeners();
@@ -124,9 +142,9 @@ class App {
     }
   }
 
-  // createAnimations () {
-  //   this.createAnimation = new Animation();
-  // }
+  createAnimations () {
+    this.createAnimation = new Animation();
+  }
 
   /**
    * Loops
@@ -151,6 +169,7 @@ class App {
     window.addEventListener('load', () => {
       window.scrollTo(0, 0);
     });
+
   }
 
   addLinkListeners() {

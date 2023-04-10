@@ -1,0 +1,16 @@
+.form-container.closed
+  .form-header
+    h2 CONTACT
+    button#close(name='close') &#x2573;
+  p Let&apos;s create together
+  form.contact-form
+    input#name(type='text' placeholder='Your name' required='')
+    br
+    input#email(type='email' placeholder='Email Address' required='')
+    br
+    input#subject(type='text' placeholder='Subject' required='')
+    br
+    textarea#message(placeholder='Your Message' cols='30' rows='10' required='')
+    br
+    button.submit-button(type='submit') Send message
+    //- input.submit-button(value='Send Message' data-wait='Please wait...')

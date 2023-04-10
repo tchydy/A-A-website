@@ -1,4 +1,5 @@
 import Page from '../../classes/page'
+import Gallery from '../../components/gallery';
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -24,90 +25,35 @@ export default class Projects extends Page {
 
     this.columns = document.querySelectorAll('.col');
     this.columnItem = document.querySelectorAll('.column__item');
+    this.allService = document.querySelectorAll('.home__services__service');
     this.projectsWrapper = document.querySelector('.projects__wrapper');
+    this.allBtn = document.querySelector(
+      '.home__services__nav__projects__link'
+    );
 
     gsap.registerPlugin(ScrollTrigger);
 
-    this.projectsColumns = [];
-    this.projectsCol1 = [];
-    this.projectsCol2 = [];
-    this.projectsCol3 = [];
-
-    this.projectContent();
-
+    // console.log(this.el);
   }
 
   create() {
     super.create();
-    // Initialize the column scroll
-    if (this.el) {
-      console.log('true');
-    } else {
-      console.log('false');
-    }
-    if (!this.allProject) return;
-    this.createColumns()
     this.colScroll();
+    this.createGallery();
+    this.nav.classList.add('hide');
+    this.socials.classList.add('hide');
   }
 
-  async projectContent () {
-    // eslint-disable-next-line no-undef
-    const data = await fetch('http://localhost:3000/projectresults');
-    this.allProject = await data.json();
-    // console.log('content created', this)
-     await this.columnItems(this.allProject);
+  createGallery() {
+    if(this.el) {
+      this.gallery = new Gallery(this.el);
 
-     if (!this.columns[0]) return;
-     this.createColumns();
-     this.colScroll();
-     console.log(this.columns[0]);
+    }
   }
 
-  columnItems (Projects) {
-
-
-   Projects.forEach((project, index) => {
-     if (index % 3 === 0) {
-       Projects[index].projectColumn = 'col3';
-       this.projectsCol3.push(project);
-     } else if (index % 2 === 0) {
-       Projects[index].projectColumn = 'col2';
-       this.projectsCol2.push(project);
-     } else {
-       Projects[index].projectColumn = 'col1';
-       this.projectsCol1.push(project);
-     }
-   });
-   this.projectsColumns.push(this.projectsCol1, this.projectsCol2, this.projectsCol3);
-  //  this.projectsColumns.push(projectsCol1, projectsCol2, projectsCol3);
-
-
-
-   this.displayCol1 = this.projectsCol1.map((project) => {
-    // return project
-     return `<figure class="column__item">
-     <img class="column__item-img" data-src=${project.imageUrl} alt=${project.imageAlt} src=${project.imageUrl} data-tag=${project.tags}>
-     </figure>`;
-    });
-    this.displayCol1 = this.displayCol1.join('')
-    // console.log(this.displayCol1);
-
-   this.displayCol2 = this.projectsCol2.map((project) => {
-     return `<figure class="column__item">
-     <img class="column__item-img" data-src=${project.imageUrl} alt=${project.imageAlt} src=${project.imageUrl} data-tag=${project.tags}>
-     </figure>`;
-    });
-    this.displayCol2 = this.displayCol2.join('')
-
-   this.displayCol3 = this.projectsCol3.map((project) => {
-     return `<figure class="column__item">
-     <img class="column__item-img" data-src=${project.imageUrl} alt=${project.imageAlt} src=${project.imageUrl} data-tag=${project.tags}>
-     </figure>`;
-    });
-    this.displayCol3 = this.displayCol3.join('')
-
-
-
+  animateIn () {
+    super.animateIn()
+    this.createGallery()
   }
 
   animatePageIn() {
@@ -141,23 +87,16 @@ export default class Projects extends Page {
     // this.scrollUpdate();
   }
 
-  onResize () {
-    this.colScroll()
-  }
-
-  createColumns() {
-    this.columns = document.querySelectorAll('.col');
-    this.columnItem = document.querySelectorAll('.column__item');
-    this.projectsWrapper = document.querySelector('.projects__wrapper');
-
-    this.columns[0].innerHTML = this.displayCol1;
-    this.columns[1].innerHTML = this.displayCol2;
-    this.columns[2].innerHTML = this.displayCol3;
-    // console.log(this.columns[0].innerHTML, this);
+  onResize() {
+    this.colScroll();
   }
 
   colScroll() {
     // console.log(this);
+    this.columns = document.querySelectorAll('.col');
+    this.columnItem = document.querySelectorAll('.column__item');
+    this.projectsWrapper = document.querySelector('.projects__wrapper');
+
     this.columnItemY = this.columnItem[0].getBoundingClientRect().height;
     this.columnY = this.columns[0].getBoundingClientRect().height;
     this.columnHeight = this.columnY + this.columnItemY / 2;

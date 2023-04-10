@@ -9,6 +9,16 @@
 */
 
 /*!
+ * Flip 3.11.3
+ * https://greensock.com
+ *
+ * @license Copyright 2008-2022, GreenSock. All rights reserved.
+ * Subject to the terms at https://greensock.com/standard-license or for
+ * Club GreenSock members, the agreement issued with that membership.
+ * @author: Jack Doyle, jack@greensock.com
+*/
+
+/*!
  * GSAP 3.11.3
  * https://greensock.com
  *
@@ -38,9 +48,21 @@
  * @author: Jack Doyle, jack@greensock.com
 */
 
+/*!
+ * matrix 3.11.3
+ * https://greensock.com
+ *
+ * Copyright 2008-2022, GreenSock. All rights reserved.
+ * Subject to the terms at https://greensock.com/standard-license or for
+ * Club GreenSock members, the agreement issued with that membership.
+ * @author: Jack Doyle, jack@greensock.com
+*/
+
 /*! ../../classes/detection */
 
 /*! ../../classes/page */
+
+/*! ../../components/gallery */
 
 /*! ../../components/slider */
 
@@ -52,9 +74,9 @@
 
 /*! ../classes/detection */
 
-/*! ../modules/logger/index.js */
+/*! ../components/contactform */
 
-/*! ../service/index */
+/*! ../modules/logger/index.js */
 
 /*! ../utils/log.js */
 
@@ -108,9 +130,25 @@
 
 /*! ./pages/about */
 
+/*! ./pages/animation */
+
 /*! ./pages/home/index */
 
+/*! ./pages/interactive */
+
+/*! ./pages/modeling */
+
+/*! ./pages/panorama */
+
 /*! ./pages/projects */
+
+/*! ./pages/renderings */
+
+/*! ./pages/service */
+
+/*! ./pages/virtualreality */
+
+/*! ./pages/web3d */
 
 /*! ./socket.js */
 
@@ -121,6 +159,8 @@
 /*! ./utils/createSocketURL.js */
 
 /*! ./utils/log.js */
+
+/*! ./utils/matrix.js */
 
 /*! ./utils/parseURL.js */
 
@@ -137,6 +177,8 @@
 /*! events */
 
 /*! gsap */
+
+/*! gsap/Flip */
 
 /*! gsap/ScrollTrigger */
 
@@ -167,6 +209,8 @@
 /*! webpack/hot/log.js */
 
 /*! webpack/lib/logging/runtime.js */
+
+/*! xhr2 */
 
 /*!**********************!*\
   !*** ./app/index.js ***!
@@ -213,8 +257,20 @@
   \**********************************/
 
 /*!**********************************!*\
+  !*** ./app/pages/web3d/index.js ***!
+  \**********************************/
+
+/*!**********************************!*\
   !*** ./node_modules/url/util.js ***!
   \**********************************/
+
+/*!***********************************!*\
+  !*** ./app/components/gallery.js ***!
+  \***********************************/
+
+/*!***********************************!*\
+  !*** ./node_modules/gsap/Flip.js ***!
+  \***********************************/
 
 /*!************************************!*\
   !*** ./app/pages/service/index.js ***!
@@ -233,12 +289,32 @@
   \*************************************/
 
 /*!*************************************!*\
+  !*** ./app/pages/modeling/index.js ***!
+  \*************************************/
+
+/*!*************************************!*\
+  !*** ./app/pages/panorama/index.js ***!
+  \*************************************/
+
+/*!*************************************!*\
   !*** ./app/pages/projects/index.js ***!
   \*************************************/
 
 /*!**************************************!*\
+  !*** ./app/pages/animation/index.js ***!
+  \**************************************/
+
+/*!**************************************!*\
   !*** ./node_modules/prefix/index.js ***!
   \**************************************/
+
+/*!***************************************!*\
+  !*** ./app/components/contactform.js ***!
+  \***************************************/
+
+/*!***************************************!*\
+  !*** ./app/pages/renderings/index.js ***!
+  \***************************************/
 
 /*!***************************************!*\
   !*** ./node_modules/events/events.js ***!
@@ -247,6 +323,10 @@
 /*!***************************************!*\
   !*** ./node_modules/gsap/Observer.js ***!
   \***************************************/
+
+/*!****************************************!*\
+  !*** ./app/pages/interactive/index.js ***!
+  \****************************************/
 
 /*!****************************************!*\
   !*** ./node_modules/gsap/CSSPlugin.js ***!
@@ -263,6 +343,18 @@
 /*!*****************************************!*\
   !*** ./node_modules/webpack/hot/log.js ***!
   \*****************************************/
+
+/*!******************************************!*\
+  !*** ./node_modules/xhr2/lib/browser.js ***!
+  \******************************************/
+
+/*!*******************************************!*\
+  !*** ./app/pages/virtualreality/index.js ***!
+  \*******************************************/
+
+/*!*******************************************!*\
+  !*** ./node_modules/gsap/utils/matrix.js ***!
+  \*******************************************/
 
 /*!*******************************************!*\
   !*** ./node_modules/querystring/index.js ***!
@@ -393,5 +485,5 @@
   \********************************************************************************/
 
 /*!*******************************************************************************************************************************!*\
-  !*** ./node_modules/webpack-dev-server/client/index.js?protocol=ws%3A&hostname=0.0.0.0&port=8081&pathname=%2Fws&logging=info ***!
+  !*** ./node_modules/webpack-dev-server/client/index.js?protocol=ws%3A&hostname=0.0.0.0&port=8080&pathname=%2Fws&logging=info ***!
   \*******************************************************************************************************************************/

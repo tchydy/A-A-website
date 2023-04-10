@@ -8,3 +8,6 @@ node_modules
 
 # global rules
 .DS_Store
+
+# junk
+./views/junk.txt

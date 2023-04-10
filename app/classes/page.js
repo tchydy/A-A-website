@@ -9,6 +9,8 @@ import Prefix from "prefix"
 import Title from "../animations/Title";
 import Paragraph from "../animations/Paragraph";
 
+import ContactForm from '../components/contactform';
+
 export default class Page {
   constructor({ element, elements, el }) {
     this.element = element;
@@ -49,20 +51,8 @@ export default class Page {
     this.createAnimation();
     this.createPreloaders();
     this.scrollDirection();
-    if (this.element === '.projects') {
-      this.projects = true;
-      this.nav.classList.add('hide');
-      this.socials.classList.add('hide');
-    } else {
-      this.projects = false;
-      this.nav.classList.remove('hide');
-      this.socials.classList.remove('hide');
-    }
-    if (this.element === '.home') {
-      this.home = true;
-    } else {
-      this.home = false;
-    }
+    this.setFullYear();
+    this.createContactForm();
   }
 
   createPreloaders() {
@@ -71,7 +61,7 @@ export default class Page {
       if (!element.src) {
         element.src = element.getAttribute('data-src');
       }
-    } )
+    });
   }
 
   /**
@@ -98,6 +88,13 @@ export default class Page {
       .addLabel('start', 0)
       .addLabel('grid', 'start+=0.6')
       .to(
+        '.overlay .container',
+        {
+          opacity: 0,
+        },
+        'start'
+      )
+      .to(
         this.el,
         {
           autoAlpha: 1,
@@ -111,8 +108,6 @@ export default class Page {
         },
         'grid'
       );
-
-
   }
 
   animateOut() {
@@ -139,8 +134,14 @@ export default class Page {
           autoAlpha: 0,
         },
         'start'
+      )
+      .to(
+        '.overlay .container',
+        {
+          opacity: 1,
+        },
+        'start'
       );
-
   }
 
   onResize() {
@@ -148,13 +149,6 @@ export default class Page {
     if (this.elements.wrapper) {
       this.scroll.limit =
         this.elements.wrapper.clientHeight - window.innerHeight;
-    }
-    if (this.typeSplit){
-      console.log('revert text')
-      this.typeSplit.revert();
-      this.createAnimation();
-    } else{
-      console.log('text not available')
     }
   }
 
@@ -236,24 +230,11 @@ export default class Page {
     // For Mobile or negative scrolling
     if (
       (this.direction === 'down' && window.pageYOffset > 150) ||
-      this.servicesInview ||
-      this.projects
+      this.servicesInview
     ) {
       this.downScroll();
     } else {
       this.upScroll();
-    }
-    if (
-      window.innerHeight + window.scrollY + 10 >= document.body.offsetHeight &&
-       !this.projects
-    ) {
-      // you're at the bottom of the about page
-      console.log('at the bottom');
-      this.socials.classList.add('bottom');
-      this.socials.classList.remove('hide');
-    } else {
-      this.socials.classList.add('hide');
-      this.socials.classList.remove('bottom');
     }
 
     // if (this.direction === 'up' && window.pageYOffset > 100) {
@@ -299,7 +280,6 @@ export default class Page {
 
   upScroll() {
     this.nav.classList.remove('hide');
-
   }
 
   createAnimation() {
@@ -314,7 +294,7 @@ export default class Page {
       tagName: 'span',
     });
 
-    console.log(this.elementsParagraph)
+    // console.log(this.elementsParagraph)
 
     this.elementsParagraph.forEach((paragraph) => {
       const lines = [...paragraph.querySelectorAll('.line')];
@@ -344,5 +324,28 @@ export default class Page {
       this.animations.push(...this.animationTitles);
     });
     // console.log(this.animations)
+    window.addEventListener('resize', () => {
+      if (this.typeSplit) {
+        console.log('revert text');
+        this.typeSplit.revert();
+        this.createAnimation();
+      } else {
+        console.log('text not available');
+      }
+    });
+  }
+
+  setFullYear() {
+    this.fullYear = new Date().getFullYear();
+    document.getElementById('currentyear').textContent =
+      this.fullYear.toString();
+    // console.log(this.fullYear.toString());
+  }
+
+  createContactForm() {
+    this.ContactForm = new ContactForm();
+    this.ContactForm.createForm();
+    // prevent scrolldown with spacebar
+
   }
 }

@@ -198,7 +198,7 @@ handleLeftClicks(e) {
       this.slideStart = this.items[0];
 
       // remove active class
-      this.items.forEach((item, index) => {
+      this.items.forEach((itemhandleTouchStart, index) => {
         item.classList.remove('active');
       });
 
@@ -214,8 +214,8 @@ handleLeftClicks(e) {
   }
 
   handleTouchStart(e) {
-    e.preventDefault();
     if(!this.inView) return;
+    e.preventDefault();
     this.dragging = true;
     this.startX = e.clientX || e.touches[0].clientX;
     this.el.classList.add('dragging');

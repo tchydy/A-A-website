@@ -1,0 +1,73 @@
+.section__wrapper{
+  width: 92%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 1px solid #707070;
+  padding-top: 12rem;
+}
+
+.clients__wrapper{
+  // margin-top: 15rem;
+  text-align: center;
+  height: 40%;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  flex-direction: column;
+}
+.client__title{
+  width: 45rem;
+  // border-bottom: 1px solid #707070;
+  height: 6rem;
+  margin: 0 auto;
+  h2{
+    letter-spacing: 0.5rem;
+    font-family: 'The Amoret Collection Sans';
+    font-size: 3rem;
+  }
+  p{
+    font-family: 'Candara';
+    font-size: 2rem;
+    margin-top: 1rem;
+    color: $color-light-white;
+  }
+}
+.clients__gallery {
+  width: 60%;
+  height: 80%;
+  margin-top: 4rem;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  gap: 4rem;
+  &__wrapper{
+    @extend %between;
+    width: 150%;
+    height: 100%;
+    gap: 4rem;
+
+    animation-name: infiniteScroll;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+}
+
+.gallery__item {
+  display: inline-block;
+  width: 27rem;
+  height: 80%;
+  overflow: hidden;
+
+}
+.gallery__item-img{
+  @extend %img
+}
+
+@keyframes infiniteScroll {
+  from {transform: translateX(0)}
+  to {transform: translateX(-100%)}
+}

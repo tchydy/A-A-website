@@ -3,5 +3,11 @@ extends ../_includes/layout
 block variables
     - var template = 'service'
 
+
 block content
-  h1.detail__title Service
+  .service(id=`${serviceName}`)
+    h1=service.title
+    each project in allProjects
+      article.service_project.none
+        h2=project.name
+        img(src=project.imageUrl alt=project.imageAlt)

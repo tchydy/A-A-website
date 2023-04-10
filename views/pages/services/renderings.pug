@@ -1,0 +1,79 @@
+extends ../../_includes/layout
+
+block variables
+    - var template = 'renderings'
+
+
+block content
+  .renderings
+    .projects__wrapper
+      .gallery
+        //- column
+        .col
+          each item, index in col1
+            figure.column__item(data-type=`${item.type}` id=`${index + 1}` data-videoUrl=`${item.videoUrl}`)
+              img.column__item-img(data-src=item.imageUrl alt=item.imageAlt)
+
+        //- column
+        .col
+          each item, index in col2
+            figure.column__item(data-type=`${item.type}` id=`${index + 1}` data-videoUrl=`${item.videoUrl}`)
+              img.column__item-img(data-src=item.imageUrl alt=item.imageAlt)
+
+        //- //- column
+        .col
+          each item, index in col3
+            figure.column__item(data-type=`${item.type}` id=`${index + 1}` data-videoUrl=`${item.videoUrl}`)
+              img.column__item-img(data-src=item.imageUrl alt=item.imageAlt)
+      //- services nav
+      .service__nav
+        //- .service__nav__bg
+        .service__nav__items
+          a.close(href='#span')
+            span CLOSE
+          .filters
+            a.rendering(href='/projects')
+              span RENDERING
+            a.next
+              span NEXT
+            a.all(href='#all')
+              span ALL
+  .contentpage.none
+    .contentpage__wrapper
+      .contentpage__main__item
+        //- img.contentpage__main__item-img(src='https://images.prismic.io/alexanderaghoportofolio/a8b1ee46-2c77-4309-a498-16769d8b39c8_1.png?auto=compress,format')
+        .play-button-wrapper.none
+          #circle-play-b.play-gif(title='Play video')
+            // SVG Play Button
+            svg(xmlns='http://www.w3.org/2000/svg' viewbox='0 0 80 80')
+              path(d='M40 0a40 40 0 1040 40A40 40 0 0040 0zM26 61.56V18.44L64 40z')
+
+
+      .contentpage__nav
+        .nav__arrow__left
+          svg.BTN(viewbox='-2545.09 11518.91 5.355 10.088')
+            path.BTN(d='M -2539.734619140625 11518.91015625 L -2545.08984375 11523.8916015625 L -2539.734619140625 11528.998046875')
+
+        .contentpage__nav-items
+          .contentpage__nav-items__wrapper
+            each project in allProjects
+              //- figure.contentpage__nav-item(data-type=`${project.type}`)
+              //-   img.contentpage__nav-item-img(data-src=project.imageUrl alt=project.imageAlt)
+
+        .nav__arrow__right
+          svg.BTN_ek(viewbox='-2545.09 11518.91 5.355 10.088')
+            path.BTN_ek(d='M -2545.089599609375 11518.91015625 L -2539.734375 11523.8916015625 L -2545.089599609375 11528.998046875')
+
+    .back-button
+      svg(viewbox='0 0 50 9')
+        path(d='m0 4.5 5-3m-5 3 5 3m45-3h-77')
+
+  .contentimagepage.none
+    .contentimagepage__wrapper
+      img.contentimagepage__img.none(src='https://images.prismic.io/alexanderaghoportofolio/a8b1ee46-2c77-4309-a498-16769d8b39c8_1.png?auto=compress,format')
+      #video-container.video-container.none
+        iframe#video(width='100%' height='100%' src='https://www.youtube.com/embed/lxYikfwyXcQ' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen='')
+
+
+    span.modal-btn-close
+

@@ -461,3 +461,254 @@ $(window).on('touchend', function(e){
 window.onbeforeunload = function () {
   window.scrollTo(0, 0);
 }
+
+const createRenders = async (api) => {
+  const defaults = await handleRequest(api);
+  const renderProjects = defaults.renderProjects;
+  const Columns = [];
+  const Col1 = [];
+  const Col2 = [];
+  const Col3 = [];
+
+  renderProjects.forEach((project, index) => {
+    if (index % 3 === 0) {
+      renderProjects.projectColumn = 'col3';
+      Col3.push(project);
+    } else if (index % 2 === 0) {
+      renderProjects.projectColumn = 'col2';
+      Col2.push(project);
+    } else {
+      renderProjects.projectColumn = 'col1';
+      if(project) {
+        Col1.push(project);
+      }
+    }
+  });
+    Columns.push(Col1, Col2, Col3);
+     return {
+       renderProjects,
+       Columns,
+       Col1,
+       Col2,
+       Col3,
+     };
+}
+
+app.get('/renderresults', async (req, res) => {
+  const api = await initApi(req);
+  const renders = await createRenders(api);
+  const renderProjects = renders.renderProjects;
+
+  res.json(renders.Col3);
+});
+
+
+// projects
+
+
+    this.projectsColumns = [];
+    this.projectsCol1 = [];
+    this.projectsCol2 = [];
+    this.projectsCol3 = [];
+
+      create() {
+    super.create();
+    this.projectContent();
+    // Initialize the column scroll
+    // if (this.el) {
+    //   console.log('true');
+    // } else {
+    //   console.log('false');
+    // }
+    // if (!this.allProject) return;
+    // this.createColumns();
+    this.colScroll();
+    this.nav.classList.add('hide');
+    this.socials.classList.add('hide');
+  }
+
+  createColumns() {
+    this.columns = document.querySelectorAll('.col');
+    this.columnItem = document.querySelectorAll('.column__item');
+    this.projectsWrapper = document.querySelector('.projects__wrapper');
+
+    this.columns[0].innerHTML = this.displayCol1;
+    this.columns[1].innerHTML = this.displayCol2;
+    this.columns[2].innerHTML = this.displayCol3;
+    // console.log(this.columns[0].innerHTML, this);
+  }
+    findCategory(elementOne, elementTwo, element) {
+    if(elementOne === elementTwo) return element;
+  }
+
+  async serviceSelected() {
+    this.projectCategory = []
+    this.allService.forEach((service) => {
+      service.addEventListener('click', (e) => {
+        // e.preventDefault();
+        console.log('clicked', service.dataset.id);
+        this.category = service.dataset.id;
+        this.allProject.forEach((project) => {
+          if (project.category === this.category) {
+            this.projectCategory.push(project);
+          }
+        });
+        console.log(this.projectCategory);
+      });
+    });
+    if(this.projectCategory.length <= 0) return;
+    if (!this.columns[0]) return;
+    await this.columnItems(this.projectCategory);
+    this.projectsWrapper.classList.remove('none');
+  }
+
+  async projectContent() {
+    // eslint-disable-next-line no-undef
+    const data = await fetch('http://localhost:8004/projectresults');
+    this.allProject = await data.json();
+    console.log('content created');
+    // if (!this.columns[0]) return;
+    // await this.columnItems(this.allProject);
+    // this.projectsWrapper.classList.remove('none');
+  }
+
+  columnItems(Projects) {
+    Projects.forEach((project, index) => {
+      if (index % 3 === 0) {
+        Projects[index].projectColumn = 'col3';
+        this.projectsCol3.push(project);
+      } else if (index % 2 === 0) {
+        Projects[index].projectColumn = 'col2';
+        this.projectsCol2.push(project);
+      } else {
+        Projects[index].projectColumn = 'col1';
+        this.projectsCol1.push(project);
+      }
+    });
+    this.projectsColumns.push(
+      this.projectsCol1,
+      this.projectsCol2,
+      this.projectsCol3
+    );
+
+    //  this.projectsColumns.push(projectsCol1, projectsCol2, projectsCol3);
+
+    this.displayCol1 = this.projectsCol1.map((project) => {
+      // return project
+      return `<figure class="column__item">
+     <img class="column__item-img" data-src=${project.imageUrl} alt=${project.imageAlt} src=${project.imageUrl} data-tag=${project.tags}>
+     </figure>`;
+    });
+    this.displayCol1 = this.displayCol1.join('');
+    // console.log(this.displayCol1);
+
+    this.displayCol2 = this.projectsCol2.map((project) => {
+      return `<figure class="column__item">
+     <img class="column__item-img" data-src=${project.imageUrl} alt=${project.imageAlt} src=${project.imageUrl} data-tag=${project.tags}>
+     </figure>`;
+    });
+    this.displayCol2 = this.displayCol2.join('');
+
+    this.displayCol3 = this.projectsCol3.map((project) => {
+      return `<figure class="column__item">
+     <img class="column__item-img" data-src=${project.imageUrl} alt=${project.imageAlt} src=${project.imageUrl} data-tag=${project.tags}>
+     </figure>`;
+    });
+    this.displayCol3 = this.displayCol3.join('');
+
+    this.createColumns();
+    this.colScroll();
+  }
+
+openModal(e) {
+    if (e.target.classList.contains('column__item-img')) {
+      this.selectedImage = e.target;
+      // All the other (that are inside the viewport)
+      this.viewportGrids = this.gridItems
+        .filter(
+          (el) =>
+            el !== this.selectedImage.parentElement &&
+            el.classList.contains('in-view')
+        )
+      this.viewportGridItems = this.gridItems
+        .filter(
+          (el) =>
+            el !== this.selectedImage.parentElement &&
+            el.classList.contains('in-view')
+        )
+        .map((item) => item.querySelector('img'));
+      // Remaining (not in the viewport)
+      this.remainingGridItems = this.gridItems
+        .filter(
+          (el) =>
+            !this.viewportGridItems.includes(el) &&
+            el !== this.selectedImage.parentElement
+        )
+        .map((item) => item.querySelector('img'));
+
+      // console.log('clicked', this.viewportGridItems, this.viewportGrids);
+
+      const state = Flip.getState(this.selectedImage);
+      this.itemState = Flip.getState(this.viewportGridItems);
+
+      this.selectedImage.classList.remove('column__item-img');
+      this.selectedImage.classList.add('contentpage__main__item-img');
+
+      this.viewportGridItems.forEach( item => {
+        const newFigure = document.createElement('figure');
+        newFigure.classList.add('contentpage__nav-item');
+        newFigure.classList.add('view-item');
+        this.navWrapper.appendChild(newFigure);
+      })
+      this.remainingGridItems.forEach((item) => {
+        const newFigure = document.createElement('figure');
+        newFigure.classList.add('contentpage__nav-item');
+        newFigure.classList.add('remaining-item');
+        this.navWrapper.appendChild(newFigure);
+      });
+
+
+      this.content.classList.remove('none');
+      // this.element.classList.add('none');
+      this.selectedParent = this.selectedImage.parentElement;
+      this.ViewItems = [...document.querySelectorAll('.view-item')];
+      this.remainingItems = [...document.querySelectorAll('.remaining-item')];
+
+			this.viewportGrids = this.gridItems.filter(
+        (el) =>
+          el !== this.selectedImage.parentElement &&
+          el.classList.contains('in-view')
+      );
+
+      this.contentImg.appendChild(this.selectedImage);
+
+      this.viewportGridItems.forEach((item, index) => {
+        this.ViewItems[index].appendChild(item);
+      });
+      this.remainingGridItems.forEach((item, index) => {
+        this.remainingItems[index].appendChild(item);
+      });
+      // console.log(this.ViewItems);
+
+      Flip.from(this.itemState, {
+        duration: 0.6,
+        ease: 'sine.out',
+        absolute: true,
+      });
+
+      Flip.from(state, {
+        duration: 0.6,
+        ease: 'sine.out',
+        absolute: true,
+      });
+
+      if (Flip.isFlipping(this.selectedImage)) {
+        console.log('flipping');
+      }
+      this.gridItems.forEach((item) => item.classList.add('pointer'));
+    }
+  }
+
+  //- video#video(controls='' preload='metadata' )
+            //- source(src='' type='video/mp4')
+        //- iframe#video(width='100%' height='100%' frameborder='0' type='text/html' src='https://www.youtube.com/embed/f-9ijiN31LI?enablejsapi=1')

@@ -23,10 +23,10 @@ export default class Cursor {
 
     });
 
-    document.addEventListener('mousedown', function () {
-      cursor.classList.add('click');
-      cursorinner.classList.add('cursorinnerhover');
-    });
+    // document.addEventListener('mousedown', function () {
+    //   cursor.classList.add('click');
+    //   cursorinner.classList.add('cursorinnerhover');
+    // });
 
     document.addEventListener('mouseup', function () {
       cursor.classList.remove('click');

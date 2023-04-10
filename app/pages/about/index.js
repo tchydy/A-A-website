@@ -52,4 +52,19 @@ export default class About extends Page {
         ease: 'expo.out',
       });
   }
+
+  getDirection() {
+    super.getDirection()
+    if (
+      window.innerHeight + window.scrollY + 10 >= document.body.offsetHeight
+    ) {
+      // you're at the bottom of the about page
+      console.log('at the bottom');
+      this.socials.classList.add('bottom');
+      this.socials.classList.remove('hide');
+    } else {
+      this.socials.classList.add('hide');
+      this.socials.classList.remove('bottom');
+    }
+  }
 }

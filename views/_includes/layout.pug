@@ -6,10 +6,11 @@ html(class=isDesktop ? "desktop" : isTablet ? 'tablet' : isPhone ? 'phone' : "" 
   body.no-scroll
     include preloader
     include navigation
-    include menu
+    //- include menu
     include cursor
     include socials
-    include overlay
+    //- include overlay
+    include contact-form
 
     #content.content(data-template=template)
       block content

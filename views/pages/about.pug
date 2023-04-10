@@ -28,12 +28,13 @@ block content
           .info__skills
             h3.info__title(data-split="title")=info.skills_title
             .info__description
-              p.info__description__text(data-split="paragraph")=info.skills_description[0].text
+              p.info__description__text(data-split="")=info.skills_description[0].text
 
         .contact__wrapper
           .contact__profile
             figure.profile__picture
               img.profilepic__small(data-src=aboutme.profilepic_small.url alt=aboutme.profilepic_small.alt)
-            .enquiry__text(data-split="paragraph")=aboutme.enguiry_text
-          .send_an_email=aboutme.contact_text
+            .enquiry__text
+              .enquiry__text__wrapper(data-split="paragraph")=aboutme.enguiry_text
+          .send_an_email#contact=aboutme.contact_text
 

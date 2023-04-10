@@ -69,6 +69,9 @@
   }
   .year {
     display: inline-block;
+    span{
+      padding-left: 0.75rem ;
+    }
   }
 }
 .socials.hide{
