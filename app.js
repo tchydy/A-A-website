@@ -432,7 +432,7 @@ app.get('/panorama', async (req, res) => {
   });
 });
 
-app.get('/web3d', async (req, res) => {
+app.get('/web-3d', async (req, res) => {
   const api = await initApi(req);
   const defaults = await handleRequest(api);
   const allProjects = defaults.allProjects;
